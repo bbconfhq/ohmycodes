@@ -1,0 +1,13 @@
+version: '3'
+services:
+  server:
+    build: server/
+    ports:
+      - "3000"
+    working_dir: /
+    volumes:
+      - "./server/.env:/.env"
+  front:
+    build: front/
+    ports:
+      - "80:80"
