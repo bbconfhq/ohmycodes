@@ -1,6 +1,7 @@
 package code
 
 import (
+	"fmt"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gwanryo/ohmycodes/models"
@@ -72,10 +73,16 @@ func Post(c *fiber.Ctx) error {
 	}
 
 	nid, _ := gonanoid.New(10)
+	name := result.Name
+	if name != "" {
+		user, _ := gonanoid.New(4)
+		name = fmt.Sprintf("User_%s", user)
+	}
 
 	result = &models.Code{
 		ID:        nid,
 		Ip:        c.IP(),
+		Name:      result.Name,
 		Title:     result.Title,
 		Content:   result.Content,
 		ExpiredAt: time.Now().AddDate(0, 0, 7),
@@ -83,7 +90,7 @@ func Post(c *fiber.Ctx) error {
 
 	err := repository.Code.Create(result)
 	if err != nil {
-		status, errs = fiber.StatusInternalServerError, 1
+		status, errs = fiber.StatusInternalServerError, 3
 		result = nil
 	}
 
