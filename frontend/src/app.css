@@ -18,8 +18,6 @@ body.light {
 
 body.dark {
 	background: linear-gradient(147deg, #000000 0%, #434343 74%);
-	background: linear-gradient(154.69deg, #6DB8EF 3.49%, #EF6D99 83.95%);
-
 }
 
 .shadow {

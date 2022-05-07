@@ -91,6 +91,10 @@
         outline: none;
 
         appearance: none;
+
+        .dark & {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
     }
 
     #info {
