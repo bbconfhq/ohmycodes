@@ -29,7 +29,12 @@ func Connect(dsn string) *gorm.DB {
 	fmt.Println("Database successfully connected")
 
 	// AutoMigrate run auto migration for gorm model
-	db.AutoMigrate(&models.Code{})
+	err = db.AutoMigrate(&models.Code{})
+
+	if err != nil {
+		panic("Database migration failed")
+	}
+
 	fmt.Println("Connected with Database")
 
 	return db
