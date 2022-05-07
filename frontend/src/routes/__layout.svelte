@@ -1,6 +1,17 @@
 <script lang="ts">
+	import { afterUpdate } from 'svelte';
+	import DarkMode from 'svelte-dark-mode';
+
+	let theme;
+
+	afterUpdate(() => {
+	    document.body.className = theme;
+	});
+
 	import '../app.css';
 </script>
+
+<DarkMode bind:theme />
 
 <main id="root">
 	<header>
