@@ -7,6 +7,7 @@ import (
 	"github.com/gwanryo/ohmycodes/models"
 	"github.com/gwanryo/ohmycodes/repository"
 	gonanoid "github.com/matoous/go-nanoid/v2"
+	"net"
 	"time"
 )
 
@@ -79,9 +80,15 @@ func Post(c *fiber.Ctx) error {
 		name = fmt.Sprintf("User_%s", user)
 	}
 
+	ip := net.ParseIP(c.IP())
+	if ip == nil {
+		ip = net.IPv4(0, 0, 0, 0)
+	}
+	maskedIp := ip.Mask(net.IPv4Mask(0xFF, 0xFF, 0, 0)).String()
+
 	result = &models.Code{
 		ID:        nid,
-		Ip:        c.IP(),
+		Ip:        maskedIp,
 		Name:      name,
 		Title:     result.Title,
 		Content:   result.Content,
