@@ -1,6 +1,4 @@
 <script context="module" lang="ts">
-	export const prerender = true;
-
 	export async function load({ fetch }) {
 	    const res = await fetch('/api/v1/code');
 	    const { Data } = await res.json();

@@ -8,7 +8,19 @@ services:
     volumes:
       - "./server/.env:/.env"
       - "./server/live.db:/live.db"
-  # front:
-  #   build: frontend/
-  #   ports:
-  #     - "3000:3000"
+  frontend:
+    build: frontend/
+    ports:
+      - "3000"
+  nginx:
+    build:
+      context: ./.nginx
+    volumes:
+      - /etc/nginx/vhost.d
+      - /etc/acme.sh
+      - /usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: unless-stopped
