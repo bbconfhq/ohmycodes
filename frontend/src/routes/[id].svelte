@@ -4,7 +4,6 @@
     export async function load({ fetch, params }) {
         const res = await fetch(`/api/v1/code/${params.id}`);
         const { Data } = await res.json();
-        console.log(Data);
         if (res.ok) {
             return {
                 props: {
@@ -30,4 +29,4 @@
     <meta name="description" content="ohmy.codes" />
 </svelte:head>
 
-<Editor title={data.title} code={data.content} name={data.name} readonly />
+<Editor title={data.title} code={data.content} name={data.name} ip={data.ip} createdAt={data.created_at} readonly />

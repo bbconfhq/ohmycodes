@@ -34,6 +34,7 @@
         'sql': 'text/x-sql',
         'pgsql': 'text/x-sql',
         'n1ql': 'text/x-sql',
+        'typescript': 'text/typescript',
     };
 
     onMount(() => {
@@ -117,24 +118,6 @@
 ></textarea>
 
 <style>
-    .CodeMirror, .CodeMirror-gutters {
-        background-color: transparent !important;
-        font-size: 1rem;
-    }
-
-    .CodeMirror {
-        min-height: 20vh;
-        height: auto !important;
-    }
-
-    :not(.readonly) .CodeMirror-scroll {
-        max-height: 60vh;
-    }
-
-    .CodeMirror-linenumber {
-        color: #969696 !important;
-    }
-
     textarea {
         display: block;
         border: none;

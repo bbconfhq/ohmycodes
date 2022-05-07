@@ -11,8 +11,9 @@ html, body {
 body {
 	background: #434343;
 }
+
 body.light {
-	background: linear-gradient(125.1deg, #48C7E0 -6.05%, rgba(72, 199, 224, 0) 56.81%), linear-gradient(235.98deg, #8289FC -4.27%, rgba(130, 137, 252, 0) 69.46%), linear-gradient(0deg, #C88AFB, #C88AFB);
+	background: linear-gradient(154.69deg, #6DB8EF 3.49%, #EF6D99 83.95%);
 }
 
 body.dark {
@@ -24,13 +25,19 @@ body.dark {
 }
 
 .CodeMirror, .CodeMirror-gutters {
-	background-color: transparent !important;
 	font-size: 1rem;
 }
 
+.glass {
+	backdrop-filter: blur(16px) saturate(200%);
+	background-color: rgba(0, 0, 0, 0.65);
+}
+
 .CodeMirror {
-	min-height: 20vh;
+	min-height: 9vh;
 	height: auto !important;
+	border-radius: 6px;
+	background: rgba(0, 0, 0, 0.2) !important;
 }
 
 .CodeMirror-scroll {
@@ -39,4 +46,8 @@ body.dark {
 
 .CodeMirror-linenumber {
 	color: #969696 !important;
+}
+
+.CodeMirror-gutters {
+	background: rgba(0, 0, 0, 0.4) !important;
 }
