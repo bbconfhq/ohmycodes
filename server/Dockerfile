@@ -1,7 +1,7 @@
 FROM golang:1.18-alpine
 WORKDIR /app
 
-RUN apk add gcc musl-dev
+RUN apk add gcc musl-dev dumb-init
 
 COPY . .
 RUN go mod download
@@ -14,4 +14,5 @@ COPY ./static /static
 
 EXPOSE 3000
 
-CMD ["/server"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/server", "--prod"]
