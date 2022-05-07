@@ -74,7 +74,7 @@ func Post(c *fiber.Ctx) error {
 
 	nid, _ := gonanoid.New(10)
 	name := result.Name
-	if name != "" {
+	if name == "" {
 		user, _ := gonanoid.New(4)
 		name = fmt.Sprintf("User_%s", user)
 	}
