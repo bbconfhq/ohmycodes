@@ -7,7 +7,7 @@ COPY . .
 RUN go mod download
 RUN go build -o ./server
 
-EXPOSE 3000
+EXPOSE 4000
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["/app/server", "--prod"]
+CMD ["/app/server", "-prod"]

@@ -82,7 +82,7 @@ func Post(c *fiber.Ctx) error {
 	result = &models.Code{
 		ID:        nid,
 		Ip:        c.IP(),
-		Name:      result.Name,
+		Name:      name,
 		Title:     result.Title,
 		Content:   result.Content,
 		ExpiredAt: time.Now().AddDate(0, 0, 7),
