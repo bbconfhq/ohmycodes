@@ -7,7 +7,8 @@ services:
     working_dir: /
     volumes:
       - "./server/.env:/.env"
-  front:
-    build: front/
-    ports:
-      - "80:80"
+      - "./server/live.db:/live.db"
+#  front:
+#    build: front/
+#    ports:
+#      - "80:80"
