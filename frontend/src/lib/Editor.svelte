@@ -70,16 +70,17 @@
 
 <style lang="scss">
     .window {
-        padding: 1rem;
         border-radius: 0.75rem;
     }
 
     .window input {
         display: block;
-        margin: 0.25rem 0 1rem;
-        padding: 0.25rem;
+        margin-top: 0.25rem;
+        padding: 0.375rem 0.25rem;
         border: 0;
-        border-radius: 6px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
         width: 100%;
 
         text-align: center;

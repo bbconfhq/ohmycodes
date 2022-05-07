@@ -9,7 +9,6 @@ const config = {
 
     kit: {
         adapter: adapter(),
-        /*
         vite: {
             server: {
                 proxy: {
@@ -21,7 +20,6 @@ const config = {
                 }
             }
         }
-        */
     }
 };
 

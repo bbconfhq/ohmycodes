@@ -101,6 +101,7 @@
             const value = instance.getValue();
             const {language} = hljs.highlightAuto(value);
             editor.setOption('mode', langmode[language] ?? language);
+            console.log(language);
         }, 500));
         editor.on('change', instance => {
             code = instance.getValue();
