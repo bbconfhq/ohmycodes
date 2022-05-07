@@ -11,6 +11,14 @@
     export let code = '';
     export let title = '';
     export let name = '';
+    export let ip;
+    if (ip) {
+        ip = `(${ip})`;
+    }
+
+    if (readonly) {
+        title = `${title} — ${name}${ip}`;
+    }
 
     const onSubmit = (e) => {
         e.preventDefault();
