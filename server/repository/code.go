@@ -46,6 +46,7 @@ func (c *codeRepoImpl) Get(data *models.Code) (*models.Code, error) {
 func (c *codeRepoImpl) GetRecent() (*[]models.Code, error) {
 	var codes *[]models.Code
 	result := c.db.
+		Limit(5).
 		Where("expired_at >= ?", time.Now()).
 		Order("created_at desc").
 		Find(&codes)
