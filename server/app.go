@@ -46,5 +46,5 @@ func main() {
 	app.Static("/", "./static/public")
 
 	// Listen on port 3000
-	log.Fatal(app.Listen(*port)) // go run app.go -port=:3000
+	log.Fatal(app.Listen(*port))
 }

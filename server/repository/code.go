@@ -27,10 +27,11 @@ func InitializeCodeRepo(db *gorm.DB) CodeRepo {
 
 func (c *codeRepoImpl) Create(data *models.Code) error {
 	code := models.Code{
-		ID:      data.ID,
-		Ip:      data.Ip,
-		Title:   data.Title,
-		Content: data.Content,
+		ID:        data.ID,
+		Ip:        data.Ip,
+		Title:     data.Title,
+		Content:   data.Content,
+		ExpiredAt: data.ExpiredAt,
 	}
 	result := c.db.Create(&code)
 	return result.Error
@@ -43,9 +44,8 @@ func (c *codeRepoImpl) Get(data *models.Code) (*models.Code, error) {
 
 func (c *codeRepoImpl) GetRecent() (*[]models.Code, error) {
 	var codes *[]models.Code
-	lastWeek := time.Now().AddDate(0, 0, -7)
 	result := c.db.
-		Where("created_at >= ?", lastWeek).
+		Where("expired_at >= ?", time.Now()).
 		Order("created_at desc").
 		Find(&codes)
 	if result.Error != nil {
