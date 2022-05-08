@@ -42,6 +42,10 @@
 
                 color: #cacaca;
 
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
                 time {
                     text-decoration: none;
                 }
