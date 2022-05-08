@@ -4,8 +4,8 @@
 
     import 'codemirror/lib/codemirror.css';
     import 'codemirror/theme/material-darker.css';
+    import {unsupportedLanguages} from '../contants/unsupportedLanguages';
     import {debounce} from '../utils/debounce';
-    import {sleep} from '../utils/sleep';
 
     export let readonly = false;
     export let tab = true;
@@ -14,7 +14,6 @@
     let CodeMirror;
     let editor;
     let textareaRef;
-    let first = true;
     let destroyed = false;
 
     const langmode = {
@@ -38,6 +37,7 @@
     };
 
     onMount(() => {
+        unsupportedLanguages.forEach(hljs.unregisterLanguage);
         (async () => {
             CodeMirror = await import('codemirror');
             await import('codemirror/addon/mode/simple');
@@ -93,9 +93,6 @@
             opts.extraKeys['Tab'] = tab;
             opts.extraKeys['Shift-Tab'] = tab;
         }
-        if (first) {
-            await sleep(50);
-        }
         editor = CodeMirror.fromTextArea(textareaRef, opts);
         editor.on('change', debounce(instance => {
             const value = instance.getValue();
@@ -106,9 +103,7 @@
         editor.on('change', instance => {
             code = instance.getValue();
         });
-        if (first) await sleep(50);
         editor.refresh();
-        first = false;
     }
 </script>
 
