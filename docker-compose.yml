@@ -1,7 +1,7 @@
 version: '3'
 services:
   server:
-    build: server/
+    image: gwanryo/ohmycodes-server
     ports:
       - "4000"
     working_dir: /
@@ -9,7 +9,7 @@ services:
       - "./server/.env:/.env"
       - "./server/live.db:/live.db"
   frontend:
-    build: frontend/
+    image: gwanryo/ohmycodes-frontend
     ports:
       - "3000"
   nginx:
