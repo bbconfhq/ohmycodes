@@ -45,17 +45,17 @@
     <div class="header">
         {#if readonly}
             <dl id="info">
-                <dt>Title</dt>
+                <dt><b>Title</b></dt>
                 <dd>{title}</dd>
-                <dt>Name</dt>
+                <dt><b>Name</b></dt>
                 <dd>{name}</dd>
-                <dt>IP</dt>
+                <dt><b>IP</b></dt>
                 <dd>{ip}</dd>
-                <dt>Created At</dt>
+                <dt><b>Created At</b></dt>
                 <dd>{formatDate(createdAt)}</dd>
             </dl>
         {:else}
-            <input type="text" id="title" placeholder="Untitled-1" bind:value={title} readonly={readonly}>
+            <input type="text" id="title" placeholder="Unnamed.txt" bind:value={title} readonly={readonly}>
         {/if}
     </div>
     <CodeMirror readonly={readonly} bind:code={code}/>
@@ -63,7 +63,7 @@
 
 {#if !readonly }
     <form class="controls shadow glass">
-        <input type="text" id="name" placeholder="Name (optional)" bind:value={name}>
+        <input type="text" id="name" placeholder="Author (optional)" bind:value={name}>
         <button type="button" id="create" on:click={onSubmit}>Create</button>
     </form>
 {/if}
@@ -76,7 +76,7 @@
     .window input {
         display: block;
         margin-top: 0.25rem;
-        padding: 0.375rem 0.25rem;
+        padding: 1rem 0.25rem;
         border: 0;
         border-bottom: 1px solid rgba(0, 0, 0, 0.25);
         border-top-left-radius: 6px;
@@ -84,7 +84,7 @@
         width: 100%;
 
         text-align: center;
-        font-size: 0.875rem;
+        font-size: 1rem;
 
         color: rgba(255, 255, 255, 0.75);
         background: rgba(0, 0, 0, 0.2);
@@ -99,7 +99,7 @@
 
     #info {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 100px minmax(25%, 100%));
         grid-template-rows: repeat(2, 1fr);
         grid-column-gap: 0;
         grid-row-gap: 1rem;
@@ -111,21 +111,12 @@
 
         color: rgba(255, 255, 255, 0.75);
         background: rgba(0, 0, 0, 0.2);
-    }
 
-    .window input::placeholder {
-        color: rgba(255, 255, 255, 0.75);
-    }
-
-    .window #editor {
-        display: block;
-        border: none;
-        width: 100%;
-
-        color: rgba(255, 255, 255, 0.75);
-
-        appearance: none;
-        background: transparent;
+        dd {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 
     .controls {

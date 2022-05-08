@@ -14,21 +14,27 @@ On Mac, or Linux:
 touch server/live.db
 ```
 
-2. Using `docker-compose` to launch for development
-
-```shell
-docker-compose up --build -f docker-compose.dev.yml
-```
-
-3. Or, we offer docker images in Docker Hub
+2. We offer docker images in Docker Hub
 
 ```shell
 docker-compose build -f docker-compose.yml
 ```
 
+3. Or, launch server each
+
+```shell
+yarn dev      # Frontend
+go run app.go # Server
+```
 
 ## Push to Docker Hub
 How to push latest image to Docker Hub
+
+Using `docker-compose` to build image
+
+```shell
+docker-compose up --build -f docker-compose.dev.yml
+```
 
 ### Frontend
 1. Tag latest image

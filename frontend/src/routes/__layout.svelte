@@ -26,7 +26,7 @@
 	#root {
 		height: 100%;
 		min-height: 100%;
-		padding: 4rem;
+		padding: 4rem 2rem;
 
 		background: radial-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15));
 
@@ -44,7 +44,7 @@
 		}
 
 		#content {
-			max-width: 800px;
+			max-width: 100%;
 			margin: 0 auto;
 		}
 	}
