@@ -64,3 +64,7 @@ input::placeholder {
 .CodeMirror-gutters {
 	background: rgba(0, 0, 0, 0.4) !important;
 }
+
+.cm-comment {
+	color: #a5a5a5 !important;
+}
