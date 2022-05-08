@@ -80,10 +80,11 @@ func Post(c *fiber.Ctx) error {
 		name = fmt.Sprintf("User_%s", user)
 	}
 
-	ip := net.ParseIP(c.IP())
-	if ip == nil {
-		ip = net.IPv4(0, 0, 0, 0)
+	ips := c.IPs()
+	if len(ips) == 0 {
+		ips = append(ips, c.IP())
 	}
+	ip := net.ParseIP(ips[0])
 	maskedIp := ip.Mask(net.IPv4Mask(0xFF, 0xFF, 0, 0)).String()
 
 	result = &models.Code{
