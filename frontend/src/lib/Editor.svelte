@@ -119,17 +119,6 @@
         }
     }
 
-    .window #editor {
-        display: block;
-        border: none;
-        width: 100%;
-
-        color: rgba(255, 255, 255, 0.75);
-
-        appearance: none;
-        background: transparent;
-    }
-
     .controls {
         display: flex;
         align-content: space-between;
