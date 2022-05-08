@@ -3,11 +3,25 @@ services:
   server:
     build: server/
     ports:
-      - "3000"
+      - "4000:4000"
     working_dir: /
     volumes:
       - "./server/.env:/.env"
-  front:
-    build: front/
+      - "./server/live.db:/live.db"
+  frontend:
+    build: frontend/
+    ports:
+      - "3000"
+  nginx:
+    build:
+      context: ./.nginx
+      args:
+        DOMAIN: ohmy.codes,www.ohmy.codes
+        EMAIL: gwanryo@gmail.com
+    volumes:
+      - "./.nginx/letsencrypt:/etc/letsencrypt"
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
     ports:
       - "80:80"
+      - "443:443"
+    restart: unless-stopped

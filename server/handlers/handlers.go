@@ -1,34 +1,17 @@
 package handlers
 
 import (
-	"boilerplate/database"
-	"boilerplate/models"
-
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gwanryo/ohmycodes/handlers/code"
 )
 
-// UserGet returns a user
-func UserList(c *fiber.Ctx) error {
-	users := database.Get()
-	return c.JSON(fiber.Map{
-		"success": true,
-		"user":    users,
-	})
-}
+func Initialize(app *fiber.App) {
+	// Create a /api/v1 endpoint
+	v1 := app.Group("/api/v1", logger.New())
 
-// UserCreate registers a user
-func UserCreate(c *fiber.Ctx) error {
-	user := &models.User{
-		Name: c.FormValue("user"),
-	}
-	database.Insert(user)
-	return c.JSON(fiber.Map{
-		"success": true,
-		"user":    user,
-	})
-}
-
-// NotFound returns custom 404 page
-func NotFound(c *fiber.Ctx) error {
-	return c.Status(404).SendFile("./static/private/404.html")
+	c := v1.Group("/code", logger.New())
+	c.Get("/", code.GetList)
+	c.Post("/", code.Post)
+	c.Get("/:uid", code.GetOne)
 }

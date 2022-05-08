@@ -1,28 +1,41 @@
 package database
 
 import (
-	"boilerplate/models"
 	"fmt"
-	"sync"
+	"github.com/gwanryo/ohmycodes/models"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 var (
-	db []*models.User
-	mu sync.Mutex
+	db *gorm.DB
 )
 
 // Connect with database
-func Connect() {
-	db = make([]*models.User, 0)
+func Connect(dsn string) *gorm.DB {
+	// define error here to prevent overshadowing the global DB
+	var err error
+
+	// Create todos sqlite file & Config GORM config
+	// GORM performs single create, update, delete operations in transactions by default to ensure database data integrity
+	db, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{})
+
+	// Connect to database
+	if err != nil {
+		// Database was connected
+		panic("failed to connect database")
+	}
+
+	fmt.Println("Database successfully connected")
+
+	// AutoMigrate run auto migration for gorm model
+	err = db.AutoMigrate(&models.Code{})
+
+	if err != nil {
+		panic("Database migration failed")
+	}
+
 	fmt.Println("Connected with Database")
-}
 
-func Insert(user *models.User) {
-	mu.Lock()
-	db = append(db, user)
-	mu.Unlock()
-}
-
-func Get() []*models.User {
 	return db
 }

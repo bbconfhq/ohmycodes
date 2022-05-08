@@ -1,18 +1,13 @@
-FROM golang:1.15 AS build
-WORKDIR /go/src/server
-COPY . .
-RUN go mod download
-
-# Builds the application as a staticly linked one, to allow it to run on alpine
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o app .
-
-# Moving the binary to the 'final Image' to make it smaller
-FROM alpine:latest
+FROM golang:1.18-alpine
 WORKDIR /app
 
-RUN mkdir ./static
-COPY ./static ./static
-COPY --from=build /go/src/server/app .
-EXPOSE 3000
+RUN apk add gcc musl-dev dumb-init
 
-CMD ["./app"]
+COPY . .
+RUN go mod download
+RUN go build -o ./server
+
+EXPOSE 4000
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/app/server", "-prod"]

@@ -1,0 +1,54 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	min-height: 100%;
+}
+body {
+	background: #434343;
+}
+
+body.light {
+	background: linear-gradient(154.69deg, #6DB8EF 3.49%, #EF6D99 83.95%);
+}
+
+body.dark {
+	background: linear-gradient(147deg, #000000 0%, #434343 74%);
+}
+
+.shadow {
+	box-shadow: 0 0 16px 0px #000;
+}
+
+.CodeMirror, .CodeMirror-gutters {
+	font-size: 1rem;
+}
+
+.glass {
+	backdrop-filter: blur(16px) saturate(200%);
+	background-color: rgba(0, 0, 0, 0.65);
+}
+
+.CodeMirror {
+	min-height: 70px;
+	height: auto !important;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	background: rgba(0, 0, 0, 0.2) !important;
+}
+
+.CodeMirror-scroll {
+	max-height: 60vh;
+}
+
+.CodeMirror-linenumber {
+	color: #969696 !important;
+}
+
+.CodeMirror-gutters {
+	background: rgba(0, 0, 0, 0.4) !important;
+}
