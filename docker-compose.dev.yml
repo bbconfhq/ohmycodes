@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    build: server/
+    ports:
+      - "4000"
+    working_dir: /
+    volumes:
+      - "./server/.env:/.env"
+      - "./server/live.db:/live.db"
+  frontend:
+    build: frontend/
+    ports:
+      - "3000:3000"

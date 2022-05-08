@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>ohmy.codes - Sharing your codes temporarily!</title>
 	<meta name="description" content="ohmy.codes" />
 </svelte:head>
 
