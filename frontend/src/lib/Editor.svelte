@@ -99,7 +99,7 @@
 
     #info {
         display: grid;
-        grid-template-columns: repeat(2, 100px minmax(25%, 100%));
+        grid-template-columns: repeat(auto-fit, 100px minmax(25%, 100%));
         grid-template-rows: repeat(2, 1fr);
         grid-column-gap: 0;
         grid-row-gap: 1rem;
