@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-    <title>Home</title>
+	<title>{data.title} by {data.name} - ohmy.codes</title>
     <meta name="description" content="ohmy.codes" />
 </svelte:head>
 
