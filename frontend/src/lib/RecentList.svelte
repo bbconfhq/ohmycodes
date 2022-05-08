@@ -12,7 +12,7 @@
         {#each items as item}
             <li>
                 <div class="item">
-                    <a class="item" href={`/${item.id}`}>{item.title}</a>
+                    <a href={`/${item.id}`}>{item.title}</a>
                     <time datetime={item.created_at}>{formatDate(item.created_at)}</time>
                 </div>
             </li>
@@ -43,8 +43,12 @@
                 color: #cacaca;
 
                 white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+
+                a {
+                  color: currentColor;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
 
                 time {
                     text-decoration: none;
