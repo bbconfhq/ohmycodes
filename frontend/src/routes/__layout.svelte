@@ -26,7 +26,7 @@
 	#root {
 		height: 100%;
 		min-height: 100%;
-		padding: 4rem 2rem;
+		padding: 2rem;
 
 		background: radial-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15));
 
