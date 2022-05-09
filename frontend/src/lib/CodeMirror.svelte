@@ -41,6 +41,8 @@
         (async () => {
             CodeMirror = await import('codemirror');
             await import('codemirror/addon/mode/simple');
+            await import('codemirror/addon/scroll/simplescrollbars.css');
+            await import('codemirror/addon/scroll/simplescrollbars');
             await import('codemirror/mode/clike/clike');
             await import('codemirror/mode/css/css');
             await import('codemirror/mode/django/django');
@@ -78,6 +80,7 @@
             tabSize: 2,
             value: '',
             mode: langmode[mode] ?? mode,
+            scrollbarStyle: 'overlay',
             readOnly: readonly,
             autoCloseBrackets: true,
             autoCloseTags: true,
