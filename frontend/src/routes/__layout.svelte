@@ -24,7 +24,6 @@
 
 <style lang="scss">
 	#root {
-		height: 100%;
 		min-height: 100%;
 		padding: 2rem;
 
