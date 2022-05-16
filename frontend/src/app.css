@@ -9,16 +9,13 @@ html, body {
 	min-height: 100%;
 	font-family: D2Coding, Consolas, monospace;
 }
-body {
-	background: #434343;
-}
 
 body.light {
-	background: linear-gradient(154.69deg, #6DB8EF 3.49%, #EF6D99 83.95%);
+	background: linear-gradient(154.69deg, #6DB8EF 3.49%, #EF6D99 83.95%) no-repeat fixed;
 }
 
 body.dark {
-	background: linear-gradient(147deg, #000000 0%, #434343 74%);
+	background: linear-gradient(147deg, #000000 0%, #434343 74%) no-repeat fixed;
 }
 
 input::placeholder {
