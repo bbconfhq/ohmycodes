@@ -8,12 +8,14 @@ services:
     volumes:
       - "./server/.env:/.env"
       - "./server/live.db:/live.db"
+    restart: unless-stopped
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "3000"
+    restart: unless-stopped
   nginx:
     build:
       context: ./.nginx
