@@ -1,8 +1,9 @@
 <script context="module" lang="ts">
   export const prerender = true;
 </script>
+
 <script lang="ts">
-  import {formatDate} from '../utils/formatDate';
+  import { formatDate } from '../utils/formatDate';
 
   export let items = [];
 </script>
@@ -21,7 +22,6 @@
 </div>
 
 <style lang="scss">
-
   ul {
     display: block;
     max-width: 600px;
@@ -55,4 +55,3 @@
     }
   }
 </style>
-

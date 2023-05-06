@@ -7,4 +7,3 @@ export function debounce(func: CallableFunction, wait: number): CallableFunction
     }, wait);
   };
 }
-

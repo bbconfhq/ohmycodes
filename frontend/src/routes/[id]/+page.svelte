@@ -1,33 +1,36 @@
-<link rel="stylesheet" href="../../app.css">
 <script lang="ts">
-    import hljs from 'highlight.js';
+  import hljs from 'highlight.js';
 
-    import 'highlight.js/styles/github.css';
-    import {formatDate} from "../../utils/formatDate.js";
+  import 'highlight.js/styles/github.css';
+  import { formatDate } from '../../utils/formatDate.js';
 
-    /** @type {import('./$types').PageData} */
-    export let data;
-    let code = data.data;
-    let { value } = hljs.highlightAuto(code.content);
+  /** @type {import('./$types').PageData} */
+  export let data;
+  let code = data.data;
+  let { value } = hljs.highlightAuto(code.content);
 </script>
 
+<link rel="stylesheet" href="../../app.css" />
+
 <svelte:head>
-	<title>{code.title} by {code.name} - ohmy.codes</title>
+  <title>{code.title} by {code.name} - ohmy.codes</title>
   <meta name="description" content="ohmy.codes" />
 </svelte:head>
 
 <div>
   <div class="tag-group">
-      <span class="tag">
-        <b>IP</b> {code.ip}
-      </span>
     <span class="tag">
-        <b>Created</b> {formatDate(code.created_at)}
-      </span>
+      <b>IP</b>
+      {code.ip}
+    </span>
+    <span class="tag">
+      <b>Created</b>
+      {formatDate(code.created_at)}
+    </span>
   </div>
   <div class="input-group">
-    <input type="text" id="title" value={code.title} readonly>
-    <input type="text" id="name" value={code.name} readonly>
+    <input type="text" id="title" value={code.title} readonly />
+    <input type="text" id="name" value={code.name} readonly />
   </div>
 </div>
 <div>
@@ -35,7 +38,6 @@
 </div>
 
 <style lang="scss">
-
   .tag-group {
     display: flex;
     justify-content: flex-end;
