@@ -55,10 +55,14 @@
 <div id="editor-container">
   <CodeMirror bind:code />
 </div>
-
-<button type="submit" id="create" form="form">Create</button>
-
+<div class="action-group">
+  <button type="submit" id="create" form="form">Create</button>
+</div>
 <style lang="scss">
+
+  form {
+    width: 100%;
+  }
   #title {
     flex: 8;
   }
@@ -71,5 +75,11 @@
     margin-bottom: 1rem;
     border: 1px solid var(--gray1);
     border-radius: 6px;
+  }
+
+  .action-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
   }
 </style>
