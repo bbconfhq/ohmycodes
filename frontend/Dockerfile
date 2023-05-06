@@ -1,11 +1,12 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 WORKDIR /app
-COPY ../frontend/package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN corepack enable
+COPY package*.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
-COPY ../frontend .
-RUN yarn build
+COPY . .
+RUN pnpm build
 
 EXPOSE 3000
 

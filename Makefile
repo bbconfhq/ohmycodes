@@ -3,3 +3,6 @@ dev:
 
 dev-down:
 	docker-compose -f docker-compose.dev.yml down
+
+build:
+	docker-compose build
