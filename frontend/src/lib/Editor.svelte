@@ -14,6 +14,11 @@
   const onSubmit = (e) => {
     e.preventDefault();
 
+    if ([title, name, code].some((v) => !v)) {
+      alert('please fill all fields');
+      return;
+    }
+
     fetch('/api/v1/code/', {
       method: 'POST',
       headers: {
@@ -42,16 +47,16 @@
   };
 </script>
 
-<div class="input-group">
-  <input type="text" id="title" placeholder="Unnamed.txt" bind:value={title} />
-  <input type="text" id="name" placeholder="Author (optional)" bind:value={name} />
-</div>
+<form id="form" class="input-group" on:submit={onSubmit}>
+  <input type="text" id="title" placeholder="Title" required bind:value={title} />
+  <input type="text" id="name" placeholder="Author" required bind:value={name} />
+</form>
 
 <div id="editor-container">
   <CodeMirror bind:code />
 </div>
 
-<button type="button" id="create" on:click={onSubmit}>Create</button>
+<button type="submit" id="create" form="form">Create</button>
 
 <style lang="scss">
   #title {
