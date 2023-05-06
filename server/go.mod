@@ -1,4 +1,4 @@
-module github.com/gwanryo/ohmycodes
+module github.com/bbconfhq/ohmycodes
 
 go 1.18
 

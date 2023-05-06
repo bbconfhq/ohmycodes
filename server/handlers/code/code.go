@@ -2,10 +2,10 @@ package code
 
 import (
 	"fmt"
+	"github.com/bbconfhq/ohmycodes/models"
+	"github.com/bbconfhq/ohmycodes/repository"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gwanryo/ohmycodes/models"
-	"github.com/gwanryo/ohmycodes/repository"
 	gonanoid "github.com/matoous/go-nanoid/v2"
 	"net"
 	"time"

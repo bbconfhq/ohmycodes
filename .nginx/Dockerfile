@@ -1,4 +1,4 @@
-FROM nginx:1.21.0-alpine
+FROM nginx:stable-alpine
 
 # Install certbot for letsencrypt certificates
 RUN apk add --no-cache certbot

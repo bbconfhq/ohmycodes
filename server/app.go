@@ -1,16 +1,16 @@
 package main
 
 import (
-	"github.com/gwanryo/ohmycodes/database"
-	"github.com/gwanryo/ohmycodes/handlers"
-	"github.com/gwanryo/ohmycodes/repository"
+	"github.com/bbconfhq/ohmycodes/database"
+	"github.com/bbconfhq/ohmycodes/handlers"
+	"github.com/bbconfhq/ohmycodes/repository"
+	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"os"
 
 	"flag"
 	"log"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
