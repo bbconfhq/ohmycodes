@@ -1,0 +1,17 @@
+# Use the official Node.js image as the base image
+FROM node:18-alpine
+
+# Set the working directory
+WORKDIR /app
+
+RUN corepack enable
+
+COPY package*.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+EXPOSE 5173
+
+CMD ["pnpm", "dev:expose"]

@@ -1,14 +1,21 @@
 version: '3'
 services:
   server:
+    container_name: server
     build: server/
     ports:
-      - "4000"
+      - "4000:4000"
     working_dir: /
     volumes:
       - "./server/.env:/.env"
       - "./server/live.db:/live.db"
   frontend:
-    build: frontend/
+    container_name: web
+    build:
+      context: frontend
+      dockerfile: Dockerfile.dev
     ports:
-      - "3000"
+      - "3000:5173"
+    volumes:
+      - "./frontend:/app"
+      - "/app/node_modules"
