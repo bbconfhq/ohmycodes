@@ -1,169 +1,65 @@
 <script context="module" lang="ts">
-    export const prerender = true;
+  export const prerender = true;
 </script>
 
 <script lang="ts">
-    import CodeMirror from '../lib/CodeMirror.svelte';
-    import {formatDate} from '../utils/formatDate';
+  import CodeMirror from './CodeMirror.svelte';
 
-    import {goto} from '$app/navigation';
+  import {goto} from '$app/navigation';
 
-    export let readonly = false;
-    export let code = '';
-    export let title = '';
-    export let name = '';
-    export let ip;
-    export let createdAt;
+  export let code = '';
+  export let title = '';
+  export let name = '';
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-        fetch('/api/v1/code/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                title,
-                name,
-                content: code,
-            }),
-        }).then((resp) => {
-            resp.json().then(({Data}) => {
-                const {id} = Data;
-                goto(`/${id}`);
-            }).catch(() => {
-                alert('unknown error');
-            });
-        }).catch(() => {
-            alert('failed to sharing your code');
-        });
-    };
+    fetch('/api/v1/code/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title,
+        name,
+        content: code,
+      }),
+    }).then((resp) => {
+      resp.json().then(({Data}) => {
+        const {id} = Data;
+        goto(`/${id}`);
+      }).catch(() => {
+        alert('unknown error');
+      });
+    }).catch(() => {
+      alert('failed to sharing your code');
+    });
+  };
 </script>
-
-<div class="window shadow glass" class:readonly={readonly}>
-    <div class="header">
-        {#if readonly}
-            <dl id="info">
-                <dt><b>Title</b></dt>
-                <dd>{title}</dd>
-                <dt><b>Name</b></dt>
-                <dd>{name}</dd>
-                <dt><b>IP</b></dt>
-                <dd>{ip}</dd>
-                <dt><b>Created At</b></dt>
-                <dd>{formatDate(createdAt)}</dd>
-            </dl>
-        {:else}
-            <input type="text" id="title" placeholder="Unnamed.txt" bind:value={title} readonly={readonly}>
-        {/if}
-    </div>
-    <CodeMirror readonly={readonly} bind:code={code}/>
+<div class="input-group">
+  <input type="text" id="title" placeholder="Unnamed.txt" bind:value={title}>
+  <input type="text" id="name" placeholder="Author (optional)" bind:value={name}>
 </div>
 
-{#if !readonly }
-    <form class="controls shadow glass">
-        <input type="text" id="name" placeholder="Author (optional)" bind:value={name}>
-        <button type="button" id="create" on:click={onSubmit}>Create</button>
-    </form>
-{/if}
+
+<div id="editor-container">
+  <CodeMirror bind:code={code}/>
+</div>
+
+<button type="button" id="create" on:click={onSubmit}>Create</button>
 
 <style lang="scss">
-    .window {
-        border-radius: 0.75rem;
-    }
+  #title {
+    flex: 8;
+  }
 
-    .window input {
-        display: block;
-        margin-top: 0.25rem;
-        padding: 1rem 0.25rem;
-        border: 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
-        width: 100%;
+  #name {
+    flex: 2;
+  }
 
-        text-align: center;
-        font-size: 1rem;
-
-        color: rgba(255, 255, 255, 0.75);
-        background: rgba(0, 0, 0, 0.2);
-        outline: none;
-
-        appearance: none;
-
-        .dark & {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-        }
-    }
-
-    #info {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, 100px minmax(25%, 100%));
-        grid-template-rows: repeat(2, 1fr);
-        grid-column-gap: 0;
-        grid-row-gap: 1rem;
-        margin: 0.25rem auto 1rem auto;
-        padding: 0.5rem 1rem;
-        border: 0;
-        border-radius: 6px;
-        width: 100%;
-
-        color: rgba(255, 255, 255, 0.75);
-        background: rgba(0, 0, 0, 0.2);
-
-        dd {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    }
-
-    .controls {
-        display: flex;
-        align-content: space-between;
-        gap: 1rem;
-        margin-top: 1rem;
-        padding: 1rem;
-        border-radius: 0.75rem;
-        width: 100%;
-
-        input {
-            width: 100%;
-            padding: 0 1rem;
-            border: 0;
-            border-radius: 6px;
-
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.875rem;
-
-            background: transparent;
-
-            appearance: none;
-
-            outline: 0;
-
-            transition: box-shadow 0.2s;
-        }
-
-        button#create {
-            padding: 0.75rem 1rem;
-            border: 0;
-            border-radius: 0.375rem;
-
-            font-size: 0.875rem;
-
-            background-color: rgba(255, 99, 99, .15);
-            color: #e91e63;
-
-            appearance: none;
-            cursor: pointer;
-
-            transition: box-shadow 0.2s;
-
-            &:focus, &:active {
-              box-shadow: 0 0 8px 2px rgba(233, 30, 99, 0.15);
-            }
-        }
-    }
+  #editor-container {
+    margin-bottom: 1rem;
+    border: 1px solid var(--gray1);
+    border-radius: 6px;
+  }
 </style>

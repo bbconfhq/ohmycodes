@@ -165,7 +165,7 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/Windows,GoLand,Go
 
-.env
-.idea
-live.db
+**/.env
+**/.idea
+**/live.db
 .nginx/letsencrypt
