@@ -8,7 +8,7 @@ export default defineConfig({
       '/api': {
         target: 'http://server:4000',
         changeOrigin: true,
-        secure: false,
+        secure: false
       }
     }
   }

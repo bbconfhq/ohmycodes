@@ -5,7 +5,7 @@
 <script lang="ts">
   import CodeMirror from './CodeMirror.svelte';
 
-  import {goto} from '$app/navigation';
+  import { goto } from '$app/navigation';
 
   export let code = '';
   export let title = '';
@@ -17,33 +17,38 @@
     fetch('/api/v1/code/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         title,
         name,
-        content: code,
-      }),
-    }).then((resp) => {
-      resp.json().then(({Data}) => {
-        const {id} = Data;
-        goto(`/${id}`);
-      }).catch(() => {
-        alert('unknown error');
+        content: code
+      })
+    })
+      .then((resp) => {
+        resp
+          .json()
+          .then(({ Data }) => {
+            const { id } = Data;
+            goto(`/${id}`);
+          })
+          .catch(() => {
+            alert('unknown error');
+          });
+      })
+      .catch(() => {
+        alert('failed to sharing your code');
       });
-    }).catch(() => {
-      alert('failed to sharing your code');
-    });
   };
 </script>
+
 <div class="input-group">
-  <input type="text" id="title" placeholder="Unnamed.txt" bind:value={title}>
-  <input type="text" id="name" placeholder="Author (optional)" bind:value={name}>
+  <input type="text" id="title" placeholder="Unnamed.txt" bind:value={title} />
+  <input type="text" id="name" placeholder="Author (optional)" bind:value={name} />
 </div>
 
-
 <div id="editor-container">
-  <CodeMirror bind:code={code}/>
+  <CodeMirror bind:code />
 </div>
 
 <button type="button" id="create" on:click={onSubmit}>Create</button>
