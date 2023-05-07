@@ -1,5 +1,5 @@
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ params, fetch, url }) {
+export async function load({ params, fetch }) {
   const res = await fetch(`/api/v1/code/${params.id}`, {
     headers: {
       'Content-Type': 'application/json'
@@ -9,12 +9,10 @@ export async function load({ params, fetch, url }) {
   if (res.ok) {
     return {
       data: body.Data,
-      hash: url.hash,
     };
   } else {
     return {
       data: null,
-      hash: '',
     };
   }
 }

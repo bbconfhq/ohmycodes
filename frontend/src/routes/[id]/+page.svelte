@@ -1,29 +1,23 @@
 <script lang="ts">
   import hljs from 'highlight.js';
-
   import 'highlight.js/styles/github.css';
+  import {onMount} from 'svelte';
+
   import {highlightLines, findNearestLineNumberElement} from '../../utils/dom';
   import { formatDate } from '../../utils/formatDate.js';
   import {parseLineHighlightHash} from '../../utils/navigator';
 
   /** @type {import('./$types').PageData} */
   export let data;
-  const code = data.data;
+  let code = data.data;
   let { value } = hljs.highlightAuto(code.content);
-  const lines = value.split(/\r?\n/);
-  const lineNumberWidth = 20 + lines.length.toString().length * 8;
-  const range = parseLineHighlightHash();
-  let start = -1;
-  let end = -1;
-  if (range != null) {
-    start = range.start;
-    end = range.end;
-  }
+
+  let lines = value.split(/\r?\n/);
+  let lineNumberWidth = 20 + lines.length.toString().length * 8;
   value = lines
     .map((v, i) => {
-      const line = i + 1;
-      return `<div class="gutter ${(start <= line && line <= end) ? 'highlight' : ''}" style="grid-template-columns: ${lineNumberWidth}px 1fr" data-line="${line}"><span class="line-number" draggable="true" style="">${
-        line
+      return `<div class="gutter" style="grid-template-columns: ${lineNumberWidth}px 1fr" data-line="${i + 1}"><span class="line-number" draggable="true" style="">${
+        i + 1
       }</span><div class="line">${v}</div></div>`;
     })
     .join('');
@@ -83,7 +77,7 @@
         highlightLines(startEl, endEl);
       } else {
         removeAllHighlight();
-        highlightLines(lineEl, lineEl);
+        lineEl.classList.add('highlight');
       }
     }
   }
@@ -127,7 +121,21 @@
       el.classList.remove('highlight');
     });
   }
+
+   onMount(() => {
+     const range = parseLineHighlightHash();
+     if (range == null) {
+       return;
+     }
+     const { start, end } = range;  
+     const lineFromEl = document.querySelector(`[data-line="${start}"]`);
+     const lineToEl = document.querySelector(`[data-line="${end}"]`);
+     removeAllHighlight();
+     highlightLines(lineFromEl, lineToEl);
+   });
 </script>
+
+<link rel="stylesheet" href="../../app.css" />
 
 <svelte:head>
   <title>{code.title} by {code.name} - ohmy.codes</title>
@@ -174,11 +182,12 @@
 
   div.code {
     position: relative;
-    white-space: pre-wrap;
+    white-space: pre;
     border: 1px solid var(--gray1);
     border-radius: 6px;
     padding: 12px 16px;
     line-height: 1.25rem;
+    white-space: pre-wrap;
   }
 
   button#copy {

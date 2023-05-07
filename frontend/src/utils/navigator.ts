@@ -11,9 +11,6 @@ export const setHash = ({ start, end }: { start: string, end: string }) => {
 
 // parse hash. what will be this format: '#L1-34'
 export const parseLineHighlightHash = () => {
-  if (typeof window == 'undefined') {
-    return ;
-  }
   const { hash } = window.location;
   const [start, end] = hash.replace('#L', '').split('-');
   const lineStart = parseInt(start, 10);
