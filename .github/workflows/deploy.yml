@@ -1,9 +1,11 @@
 name: Deploy to OCI
+
 on:
-  workflow_run:
-    workflows: ["Dockerize Frontend", "Dockerize Server"]
-    types:
-      - completed
+  push:
+    tags: [ 'v*.*' ]
+
+needs: ["Dockerize Frontend", "Dockerize Server"]
+
 jobs:
   build:
     name: Build
