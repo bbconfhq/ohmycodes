@@ -72,21 +72,9 @@ body {
   font-size: 16px !important;
 }
 
-/*.CodeMirror-scroll {*/
-/*    max-height: 60vh;*/
-/*}*/
-
-/*.CodeMirror-linenumber {*/
-/*    color: #969696 !important;*/
-/*}*/
-
 .CodeMirror-gutters {
   background: #eee !important;
 }
-
-/*.cm-comment {*/
-/*    color: #a5a5a5 !important;*/
-/*}*/
 
 /* --- */
 
