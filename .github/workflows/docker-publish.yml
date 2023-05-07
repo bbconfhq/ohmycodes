@@ -5,15 +5,16 @@ name: Dockerize
 # separate terms of service, privacy policy, and support
 # documentation.
 
-on:
-  push:
-    tags: [ 'v*.*' ]
+inputs:
+  type:
+    description: 'Choose server or frontend'
+    required: true
 
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}-${{ env.TYPE }}
+  IMAGE_NAME: ${{ github.repository }}-${{ inputs.type }}
   PLATFORMS: linux/amd64,linux/arm64
 
 jobs:
@@ -66,7 +67,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ${{ env.TYPE }}/
+          context: ${{ inputs.type }}/
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
