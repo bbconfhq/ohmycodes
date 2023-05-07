@@ -32,11 +32,11 @@ export const findNearestLineNumberElement = (el: Element): Element | null => {
   return nearestEl;
 };
 
-export const highlightLines = (startElement, endElement, className) => {
+export const highlightLines = (startElement, endElement) => {
   let currentElement = startElement;
   while (currentElement && currentElement !== endElement.nextSibling) {
     if (currentElement.nodeType === Node.ELEMENT_NODE) {
-      currentElement.classList.add(className);
+      currentElement.classList.add('highlight');
     }
     currentElement = currentElement.nextSibling;
   }

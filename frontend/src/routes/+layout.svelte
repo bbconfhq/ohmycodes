@@ -1,16 +1,7 @@
 <script lang="ts">
-  import { afterUpdate } from 'svelte';
   import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
-  import '../app.css';
-
-  let theme;
-
-  afterUpdate(() => {
-    document.body.className = theme;
-  });
+  import './app.css';
 </script>
-
-<link rel="stylesheet" href="../app.css" />
 
 <main id="root">
   <header>
