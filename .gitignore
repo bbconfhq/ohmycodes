@@ -168,4 +168,4 @@ $RECYCLE.BIN/
 **/.env
 **/.idea
 **/live.db
-.nginx/letsencrypt
+.nginx/
