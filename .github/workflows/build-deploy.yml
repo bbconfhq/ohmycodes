@@ -125,5 +125,4 @@ jobs:
         host: ${{ secrets.OCI_HOST }}
         username: ${{ secrets.OCI_USERNAME }}
         key: ${{ secrets.OCI_KEY }}
-        port: ${{ secrets.OCI_PORT }}
-        script: sudo /home/${{ secrets.OCI_USERNAME }}/${{ github.repository }}/deploy.sh
+        script: cd ${{ github.event.repository.name }} && sudo ./deploy.sh
