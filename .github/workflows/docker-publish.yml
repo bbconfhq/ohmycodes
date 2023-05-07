@@ -5,6 +5,8 @@ name: Dockerize
 # separate terms of service, privacy policy, and support
 # documentation.
 
+on: {}
+
 inputs:
   type:
     description: 'Choose server or frontend'
