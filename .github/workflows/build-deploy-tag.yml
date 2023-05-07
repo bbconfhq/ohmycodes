@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: .github/workflows/docker-publish.yml
+    - uses: ${{ github.repository }}/.github/workflows/docker-publish.yml
       with:
         TYPE: ${{ github.job }}
 
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: .github/workflows/docker-publish.yml
+    - uses: ${{ github.repository }}/.github/workflows/docker-publish.yml
       with:
         TYPE: ${{ github.job }}
 
@@ -26,4 +26,4 @@ jobs:
     needs: [frontend, server]
     steps:
     - uses: actions/checkout@v2
-    - uses: .github/workflows/oci-deploy.yml
+    - uses: ${{ github.repository }}/.github/workflows/oci-deploy.yml
