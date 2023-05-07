@@ -2,45 +2,131 @@
   import hljs from 'highlight.js';
 
   import 'highlight.js/styles/github.css';
+  import {highlightLines, findNearestLineNumberElement} from '../../utils/dom';
   import { formatDate } from '../../utils/formatDate.js';
+  import {parseLineHighlightHash} from '../../utils/navigator';
 
   /** @type {import('./$types').PageData} */
   export let data;
-  let code = data.data;
+  const code = data.data;
   let { value } = hljs.highlightAuto(code.content);
-  // base = 20
-
-  let lines = value.split(/\r?\n/);
-  let lineNumberWidth = Math.max(20, lines.length.toString().length * 15);
-  value = lines.map((v, i) => {
-      return `<div class="gutter" style="grid-template-columns: ${lineNumberWidth}px 1fr"><span class="line-number" style="">${i + 1}</span><div class="line">${v}</div></div>`
-  }).join('');
+  const lines = value.split(/\r?\n/);
+  const lineNumberWidth = 20 + lines.length.toString().length * 8;
+  const range = parseLineHighlightHash();
+  let start = -1;
+  let end = -1;
+  if (range != null) {
+    start = range.start;
+    end = range.end;
+  }
+  value = lines
+    .map((v, i) => {
+      const line = i + 1;
+      return `<div class="gutter ${(start <= line && line <= end) ? 'highlight' : ''}" style="grid-template-columns: ${lineNumberWidth}px 1fr" data-line="${line}"><span class="line-number" draggable="true" style="">${
+        line
+      }</span><div class="line">${v}</div></div>`;
+    })
+    .join('');
 
   function onCopy() {
     if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(code.content).then(() => {
-          alert('Copied to clipboard.');
-        })
+      navigator.clipboard.writeText(code.content).then(() => {
+        alert('Copied to clipboard.');
+      });
     } else {
-      const textArea = document.createElement("textarea");
+      const textArea = document.createElement('textarea');
       textArea.value = code.content;
-          
-      textArea.style.position = "absolute";
-      textArea.style.left = "-999999px";
-          
+
+      textArea.style.position = 'absolute';
+      textArea.style.left = '-999999px';
+
       document.body.prepend(textArea);
       textArea.select();
 
       try {
-          document.execCommand('copy');
-          alert('Copied to clipboard.');
+        document.execCommand('copy');
+        alert('Copied to clipboard.');
       } catch (error) {
-          console.error(error);
+        console.error(error);
       } finally {
-          textArea.remove();
+        textArea.remove();
       }
     }
-  };
+  }
+
+  function codeViewerEventBinder(el: Element) {
+    el.addEventListener('click', onClick);
+    el.addEventListener('dragstart', onDragStart);
+    el.addEventListener('dragover', onDragOver);
+    el.addEventListener('drop', onDrop);
+  }
+
+  function isLineNumberElement(el: Element) {
+    return el.tagName === 'SPAN' && el.classList.contains('line-number');
+  }
+
+  function onClick(e: MouseEvent) {
+    const el = e.target as Element;
+    if (isLineNumberElement(el)) {
+      const line = el.textContent;
+      const lineEl = document.querySelector(`[data-line="${line}"]`);
+      if (e.shiftKey) {
+        const lastLineEl = document.querySelector('.highlight');
+        if (lastLineEl == null) {
+          return;
+        }
+        const [startEl, endEl] =
+          Number(lastLineEl.getAttribute('data-line')) < Number(lineEl.getAttribute('data-line'))
+            ? [lastLineEl, lineEl]
+            : [lineEl, lastLineEl];
+        removeAllHighlight();
+        highlightLines(startEl, endEl, 'highlight');
+      } else {
+        removeAllHighlight();
+        lineEl.classList.add('highlight');
+      }
+    }
+  }
+
+  function onDragStart(e: DragEvent) {
+    const el = e.target as Element;
+    if (isLineNumberElement(el)) {
+      e.dataTransfer.setData('text/plain', el.textContent);
+    } else {
+      e.preventDefault();
+    }
+  }
+
+  function onDragOver(e: DragEvent) {
+    e.preventDefault();
+  }
+
+  function onDrop(e: DragEvent) {
+    e.preventDefault();
+    const lineFrom = e.dataTransfer.getData('text');
+    let lineTo: string;
+    const el = e.target as Element;
+    if (isLineNumberElement(el)) {
+      lineTo = el.textContent;
+    } else {
+      const nearEl = findNearestLineNumberElement(el);
+      if (nearEl == null) {
+        return;
+      }
+      lineTo = nearEl.textContent;
+    }
+    const lineFromEl = document.querySelector(`[data-line="${lineFrom}"]`);
+    const lineToEl = document.querySelector(`[data-line="${lineTo}"]`);
+    removeAllHighlight();
+    highlightLines(lineFromEl, lineToEl, 'highlight');
+  }
+
+  function removeAllHighlight() {
+    const highlightEls = document.querySelectorAll('.highlight');
+    highlightEls.forEach((el) => {
+      el.classList.remove('highlight');
+    });
+  }
 </script>
 
 <link rel="stylesheet" href="../../app.css" />
@@ -67,13 +153,12 @@
   </div>
 </div>
 <div>
-  <div class="code">
+  <div class="code" on:dragstart={onDragStart} use:codeViewerEventBinder>
     <button id="copy" on:click={onCopy}>Copy</button>{@html value}
   </div>
 </div>
 
 <style lang="scss">
-
   .tag-group {
     display: flex;
     justify-content: flex-end;
@@ -91,12 +176,11 @@
 
   div.code {
     position: relative;
-    white-space: pre;
+    white-space: pre-wrap;
     border: 1px solid var(--gray1);
     border-radius: 6px;
     padding: 12px 16px;
     line-height: 1.25rem;
-    white-space: pre-wrap;
   }
 
   button#copy {

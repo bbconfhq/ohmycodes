@@ -13,6 +13,8 @@
   --gray2: #a6a6a6;
   --gray3: #515f50;
   --gray4: #9b9b9b;
+  --highlight: rgba(255, 255, 0, 0.3);
+  --highlight-border: rgba(255, 0, 0, 0.4);
 }
 
 *:not(pre, code, kbd) {
@@ -145,18 +147,30 @@ button:is(:focus, :hover) {
   display: grid;
 }
 
+.gutter.highlight {
+  background-color: var(--highlight);
+}
+
 .gutter .line-number {
   display: inline-block;
   text-align: right;
   margin-right: 0.5rem;
-  padding-left: 0.5rem;;
+  padding-left: 0.5rem;
   padding-right: 0.5rem;
   color: var(--gray4);
   font-family: D2Coding, Consolas, monospace;
   user-select: none;
+  cursor: pointer;
+  border-right: 2px solid transparent;
+  width: 100%;
+}
+
+.gutter.highlight .line-number {
+  border-right-color: var(--highlight-border);
 }
 
 .gutter .line {
   display: inline-block;
   overflow-wrap: anywhere;
+  margin-left: 0.5rem;
 }

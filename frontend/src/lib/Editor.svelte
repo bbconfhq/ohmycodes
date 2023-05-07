@@ -58,8 +58,8 @@
 <div class="action-group">
   <button type="submit" id="create" form="form">Create</button>
 </div>
-<style lang="scss">
 
+<style lang="scss">
   form {
     width: 100%;
   }
