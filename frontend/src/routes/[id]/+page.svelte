@@ -80,10 +80,10 @@
             ? [lastLineEl, lineEl]
             : [lineEl, lastLineEl];
         removeAllHighlight();
-        highlightLines(startEl, endEl, 'highlight');
+        highlightLines(startEl, endEl);
       } else {
         removeAllHighlight();
-        lineEl.classList.add('highlight');
+        highlightLines(lineEl, lineEl);
       }
     }
   }
@@ -118,7 +118,7 @@
     const lineFromEl = document.querySelector(`[data-line="${lineFrom}"]`);
     const lineToEl = document.querySelector(`[data-line="${lineTo}"]`);
     removeAllHighlight();
-    highlightLines(lineFromEl, lineToEl, 'highlight');
+    highlightLines(lineFromEl, lineToEl);
   }
 
   function removeAllHighlight() {
@@ -128,8 +128,6 @@
     });
   }
 </script>
-
-<link rel="stylesheet" href="../../app.css" />
 
 <svelte:head>
   <title>{code.title} by {code.name} - ohmy.codes</title>
