@@ -7,29 +7,23 @@ on:
 jobs:
   frontend:
     runs-on: ubuntu-latest
-    env:
-      TEMPLATE: ${{ github.repository }}/.github/workflows/docker-publish.yml@develop
     steps:
     - uses: actions/checkout@v2
-    - uses: ${{ env.TEMPLATE }}
+    - uses: .github/workflows/docker-publish.yml@develop
       with:
         TYPE: ${{ github.job }}
 
   server:
     runs-on: ubuntu-latest
-    env:
-      TEMPLATE: ${{ github.repository }}/.github/workflows/docker-publish.yml@develop
     steps:
     - uses: actions/checkout@v2
-    - uses: ${{ env.TEMPLATE }}
+    - uses: .github/workflows/docker-publish.yml@develop
       with:
         TYPE: ${{ github.job }}
 
   deploy:
     runs-on: ubuntu-latest
     needs: [frontend, server]
-    env:
-      TEMPLATE: ${{ github.repository }}/.github/workflows/oci-deploy.yml@develop
     steps:
     - uses: actions/checkout@v2
-    - uses: ${{ env.TEMPLATE }}
+    - uses: .github/workflows/docker-publish.yml@develop
