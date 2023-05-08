@@ -5,7 +5,6 @@ import (
 	"github.com/bbconfhq/ohmycodes/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"os"
 )
 
 var (
@@ -16,17 +15,6 @@ var (
 func Connect(dsn string) *gorm.DB {
 	// define error here to prevent overshadowing the global DB
 	var err error
-
-	// Remove existing sqlite file
-	_, err = os.Stat(dsn)
-
-	// Remove existing sqlite file
-	if err == nil {
-		_ = os.Remove(dsn)
-	}
-
-	// Create new sqlite file
-	_, _ = os.Create(dsn)
 
 	// Create todos sqlite file & Config GORM config
 	// GORM performs single create, update, delete operations in transactions by default to ensure database data integrity
