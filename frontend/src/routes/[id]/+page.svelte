@@ -182,12 +182,11 @@
 
   div.code {
     position: relative;
-    white-space: pre;
+    white-space: pre-wrap;
     border: 1px solid var(--gray1);
     border-radius: 6px;
     padding: 12px 16px;
     line-height: 1.25rem;
-    white-space: pre-wrap;
   }
 
   button#copy {

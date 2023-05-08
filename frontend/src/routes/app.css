@@ -97,6 +97,24 @@ input:is(:focus, :hover) {
   border-color: var(--blue1);
 }
 
+select {
+    border: 1px solid var(--gray1);
+    border-radius: 6px;
+    padding: 4px 11px;
+    font-size: 16px;
+    outline: none;
+    appearance: none;
+
+  background-image:
+          linear-gradient(45deg, transparent 50%, gray 50%),
+          linear-gradient(135deg, gray 50%, transparent 50%);
+  background-position:
+          calc(100% - 20px) calc(0.6em + 2px),
+          calc(100% - 15px) calc(0.6em + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
 button {
   appearance: none;
   border: 0;
@@ -162,3 +180,4 @@ button:is(:focus, :hover) {
   overflow-wrap: anywhere;
   margin-left: 0.5rem;
 }
+

@@ -6,10 +6,17 @@
   import CodeMirror from './CodeMirror.svelte';
 
   import { goto } from '$app/navigation';
+  import {supportedLanguages} from '$lib/language.js';
 
+  let language = 'auto';
+  let detectedLangauge = '';
   export let code = '';
   export let title = '';
   export let name = '';
+
+  const handleEditorLanguageChange = (e) => {
+    detectedLangauge = e.detail.language;
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +34,8 @@
       body: JSON.stringify({
         title,
         name,
-        content: code
+        content: code,
+        language: language === 'auto' ? detectedLangauge : language,
       })
     })
       .then((resp) => {
@@ -48,12 +56,18 @@
 </script>
 
 <form id="form" class="input-group" on:submit={onSubmit}>
+  <select bind:value={language} id="language">
+    <option value={'auto'}>auto{detectedLangauge === '' ? '' : ` (${detectedLangauge})`}</option>
+    {#each supportedLanguages as lang}
+      <option value={lang}>{lang}</option>
+    {/each}
+  </select>
   <input type="text" id="title" placeholder="Title" required bind:value={title} />
   <input type="text" id="name" placeholder="Author" required bind:value={name} />
 </form>
 
 <div id="editor-container">
-  <CodeMirror bind:code />
+  <CodeMirror bind:code bind:language on:languageChange={handleEditorLanguageChange} />
 </div>
 <div class="action-group">
   <button type="submit" id="create" form="form">Create</button>
@@ -63,6 +77,12 @@
   form {
     width: 100%;
   }
+
+  #language {
+    max-width: 180px;
+    width: 100%;
+  }
+
   #title {
     flex: 8;
   }

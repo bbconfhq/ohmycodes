@@ -1,37 +1,30 @@
 <script lang="ts">
   import hljs from 'highlight.js';
-  import { onMount } from 'svelte';
+  import {createEventDispatcher, onMount} from 'svelte';
 
   import 'codemirror/lib/codemirror.css';
   import 'codemirror-github-light/lib/codemirror-github-light-theme.css';
   import { debounce } from '../utils/debounce';
 
+  import {langmode, supportedLanguages} from './language';
+
+
   export let readonly = false;
   export let tab = true;
   export let code = '';
+  export let language = 'auto';
+
+  const dispatch = createEventDispatcher();
+
+  const onLanguageChange = (language: string) => {
+    dispatch('languageChange', { language: language ?? '' });
+  };
+
 
   let CodeMirror;
   let editor;
   let textareaRef;
   let destroyed = false;
-
-  const langmode = {
-    html: 'text/html',
-    xml: 'text/html',
-    scss: 'text/x-scss',
-    less: 'text/x-less',
-    markdown: 'text/x-markdown',
-    c: 'text/x-csrc',
-    cpp: 'text/x-c++src',
-    csharp: 'text/x-csharp',
-    java: 'text/x-java',
-    kotlin: 'text/x-kotlin',
-    scala: 'text/x-scala',
-    rust: 'text/x-rustsrc',
-    sql: 'text/x-sql',
-    typescript: 'text/typescript'
-  };
-  const supportedLanguages = Object.keys(langmode);
 
   onMount(() => {
     (async () => {
@@ -96,15 +89,31 @@
     editor.on(
       'change',
       debounce((instance) => {
+        if (language !== 'auto') {
+          return;
+        }
         const value = instance.getValue();
-        const { language } = hljs.highlightAuto(value, supportedLanguages);
-        editor.setOption('mode', langmode[language] ?? language);
+        const { language: detectedLanguage} = hljs.highlightAuto(value, supportedLanguages);
+        onLanguageChange(detectedLanguage);
+        editor.setOption('mode', langmode[detectedLanguage] ?? detectedLanguage);
       }, 500)
     );
     editor.on('change', (instance) => {
       code = instance.getValue();
     });
     editor.refresh();
+  }
+
+  $: {
+    if (editor != null) {
+      if (language !== 'auto') {
+        editor.setOption('mode', langmode[language] ?? langmode);
+      } else {
+        const {language: detectedLanguage} = hljs.highlightAuto(code, supportedLanguages);
+        onLanguageChange(detectedLanguage);
+        editor.setOption('mode', langmode[detectedLanguage] ?? detectedLanguage);
+      }
+    }
   }
 </script>
 
