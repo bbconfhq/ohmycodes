@@ -32,6 +32,7 @@ func (c *codeRepoImpl) Create(data *models.Code) error {
 		Name:      data.Name,
 		Title:     data.Title,
 		Content:   data.Content,
+		Language:  data.Language,
 		ExpiredAt: data.ExpiredAt,
 	}
 	result := c.db.Create(&code)
