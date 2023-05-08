@@ -1,7 +1,6 @@
 package code
 
 import (
-	"fmt"
 	"github.com/bbconfhq/ohmycodes/models"
 	"github.com/bbconfhq/ohmycodes/repository"
 	"github.com/go-playground/validator/v10"
@@ -73,11 +72,12 @@ func Post(c *fiber.Ctx) error {
 		})
 	}
 
-	nid, _ := gonanoid.New(10)
-	name := result.Name
-	if name == "" {
-		user, _ := gonanoid.New(4)
-		name = fmt.Sprintf("User_%s", user)
+	nid, err := gonanoid.New(10)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(Response{
+			Data:  nil,
+			Error: 3,
+		})
 	}
 
 	ips := c.IPs()
@@ -90,15 +90,16 @@ func Post(c *fiber.Ctx) error {
 	result = &models.Code{
 		ID:        nid,
 		Ip:        maskedIp,
-		Name:      name,
+		Name:      result.Name,
 		Title:     result.Title,
 		Content:   result.Content,
+		Language:  result.Language,
 		ExpiredAt: time.Now().AddDate(0, 0, 7),
 	}
 
-	err := repository.Code.Create(result)
+	err = repository.Code.Create(result)
 	if err != nil {
-		status, errs = fiber.StatusInternalServerError, 3
+		status, errs = fiber.StatusInternalServerError, 4
 		result = nil
 	}
 
