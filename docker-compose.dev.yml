@@ -1,7 +1,7 @@
 version: '3'
 services:
   server:
-    container_name: ghcr.io/bbconfhq/ohmycodes-server:main
+    container_name: ohmycodes-server
     build: server/
     ports:
       - "4000:4000"
@@ -10,7 +10,7 @@ services:
       - "./server/.env:/.env"
       - "./server/live.db:/live.db"
   frontend:
-    container_name: ghcr.io/bbconfhq/ohmycodes-frontend:main
+    container_name: ohmycodes-frontend
     build:
       context: frontend
       dockerfile: Dockerfile.dev
