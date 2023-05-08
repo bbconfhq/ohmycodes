@@ -9,8 +9,13 @@
 
   /** @type {import('./$types').PageData} */
   export let data;
-  let code = data.data;
-  let { value } = hljs.highlightAuto(code.content);
+  let payload = data.data;
+  let value: string;
+  if (payload.language !== 'auto') {
+    value = hljs.highlight(payload.content, {language: payload.language}).value;
+  } else {
+    value = hljs.highlightAuto(payload.content).value;
+  }
 
   let lines = value.split(/\r?\n/);
   let lineNumberWidth = 20 + lines.length.toString().length * 8;
@@ -24,12 +29,12 @@
 
   function onCopy() {
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(code.content).then(() => {
+      navigator.clipboard.writeText(payload.content).then(() => {
         alert('Copied to clipboard.');
       });
     } else {
       const textArea = document.createElement('textarea');
-      textArea.value = code.content;
+      textArea.value = payload.content;
 
       textArea.style.position = 'absolute';
       textArea.style.left = '-999999px';
@@ -138,7 +143,7 @@
 <link rel="stylesheet" href="../../app.css" />
 
 <svelte:head>
-  <title>{code.title} by {code.name} - ohmy.codes</title>
+  <title>{payload.title} by {payload.name} - ohmy.codes</title>
   <meta name="description" content="ohmy.codes" />
 </svelte:head>
 
@@ -146,16 +151,16 @@
   <div class="tag-group">
     <span class="tag">
       <b>IP</b>
-      {code.ip}
+      {payload.ip}
     </span>
     <span class="tag">
       <b>Created</b>
-      {formatDate(code.created_at)}
+      {formatDate(payload.created_at)}
     </span>
   </div>
   <div class="input-group">
-    <input type="text" id="title" value={code.title} readonly />
-    <input type="text" id="name" value={code.name} readonly />
+    <input type="text" id="title" value={payload.title} readonly />
+    <input type="text" id="name" value={payload.name} readonly />
   </div>
 </div>
 <div>
