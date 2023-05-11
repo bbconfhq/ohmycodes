@@ -140,7 +140,7 @@ jobs:
         with:
           args: |
             <@&{{ DISCORD_ROLE_ID }}>
-            ✅ [{{GITHUB_REPOSITORY}}](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}>)@[${{ steps.meta.outputs.VERSION }}](<<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/releases/tag/${{ steps.meta.outputs.VERSION }}>) has been deployed successfully.
+            ✅ [{{GITHUB_REPOSITORY}}](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}>)@[${{ steps.meta.outputs.VERSION }}](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/releases/tag/${{ steps.meta.outputs.VERSION }}>) has been deployed successfully.
             🧾 [Click to see detail](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>)
 
   notify-fail:
@@ -160,5 +160,5 @@ jobs:
         with:
           args: |
             <@&{{ DISCORD_ROLE_ID }}>
-            ❌ Deployment of [{{GITHUB_REPOSITORY}}](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}>)@[${{ steps.meta.outputs.VERSION }}](<<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/releases/tag/${{ steps.meta.outputs.VERSION }}>) has failed.
+            ❌ Deployment of [{{GITHUB_REPOSITORY}}](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}>)@[${{ steps.meta.outputs.VERSION }}](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/releases/tag/${{ steps.meta.outputs.VERSION }}>) has failed.
             🧾 [Click to see detail](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>)
