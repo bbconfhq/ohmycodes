@@ -116,6 +116,7 @@ jobs:
     needs: [frontend, server]
     steps:
       - name: executing remote ssh commands using password
+        id: ssh
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.OCI_HOST }}
@@ -123,15 +124,19 @@ jobs:
           key: ${{ secrets.OCI_KEY }}
           script: cd ${{ github.event.repository.name }} && sudo ./deploy.sh
 
-  notify:
-    runs-on: ubuntu-latest
-    needs: [deploy]
-    steps:
-      - name: Get version
-        id: get-version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - name: Get metadata
+        if: ${{ always() }}
+        id: meta
+        run: |
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          if [ "${{ steps.ssh.outcome }}" == "success" ]; then
+            echo "OUTCOME=✅" >> $GITHUB_OUTPUT
+          else
+            echo "OUTCOME=❌" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Send notification to discord
+      - name: Success notification to discord
+        if: ${{ always() }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           ROLE_ID: ${{ secrets.DISCORD_ROLE_ID }}
@@ -139,5 +144,7 @@ jobs:
         with:
           args: |
             <@&{{ ROLE_ID }}>
-            The project {{ EVENT_PAYLOAD.repository.full_name }}@${{ steps.get-version.outputs.VERSION }} has been deployed.
-            Deploy Log: <https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>
+            Project: {{ EVENT_PAYLOAD.repository.full_name }}@${{ steps.meta.outputs.VERSION }}
+            [Deploy]
+            Result: {{ steps.meta.outputs.OUTCOME }}
+            Log: <https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>
