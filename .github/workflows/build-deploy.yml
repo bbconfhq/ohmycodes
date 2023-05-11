@@ -128,8 +128,8 @@ jobs:
     needs: [deploy]
     steps:
       - name: Get version
-        id: version
-        run: echo "VERSION ${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        id: get-version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: Send notification to discord
         env:
@@ -138,6 +138,6 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: |
-            The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed. <@&{{ ROLE_ID }}>
-            Version: ${{ steps.get_version.outputs.VERSION }}
-            Action: <https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>
+            <@&{{ ROLE_ID }}>
+            The project {{ EVENT_PAYLOAD.repository.full_name }}@${{ steps.get-version.outputs.VERSION }} has been deployed.
+            Deploy Log: <https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>
