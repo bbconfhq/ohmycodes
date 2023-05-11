@@ -135,7 +135,7 @@ jobs:
         ROLE_ID: ${{ secrets.DISCORD_ROLE_ID }}
       uses: Ilshidur/action-discord@master
       with:
-        args: >
-          The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed. <@&{{ ROLE_ID }}>\n
-          Version: ${{ steps.get_version.outputs.VERSION }}\n
+        args: |
+          The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed. <@&{{ ROLE_ID }}>
+          Version: ${{ steps.get_version.outputs.VERSION }}
           Action: <https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>
