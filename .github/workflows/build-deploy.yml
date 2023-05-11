@@ -132,9 +132,10 @@ jobs:
     - name: Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        ROLE_ID: ${{ secrets.DISCORD_ROLE_ID }}
       uses: Ilshidur/action-discord@master
       with:
         args: >
-          The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.
+          The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed. <@&{{ ROLE_ID }}>
           Version: ${{ steps.get_version.outputs.VERSION }}
-          https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          Action: <https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}>
