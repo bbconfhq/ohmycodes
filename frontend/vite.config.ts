@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://server:4000',
+        target: 'http://ohmycodes-server:4000',
         changeOrigin: true,
         secure: false
       }

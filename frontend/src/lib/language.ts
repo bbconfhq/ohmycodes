@@ -10,6 +10,7 @@ export const langmode = {
   java: 'text/x-java',
   go: 'text/x-go',
   kotlin: 'text/x-kotlin',
+  python: 'text/x-python',
   scala: 'text/x-scala',
   rust: 'text/x-rustsrc',
   sql: 'text/x-sql',
