@@ -140,7 +140,7 @@ jobs:
         with:
           args: |
             <@&{{ ROLE_ID }}>
-            ✅ [{{ EVENT_PAYLOAD.repository.full_name }}](${{ github.repositoryUrl }})@${{ steps.meta.outputs.VERSION }}] has been successfully deployed.
+            ✅ [{{ EVENT_PAYLOAD.repository.full_name }}](${{ github.repositoryUrl }})@${{ steps.meta.outputs.VERSION }} has been successfully deployed.
             🧾 [Click to see detail](https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}})
 
   notify-fail:
@@ -160,5 +160,5 @@ jobs:
         with:
           args: |
             <@&{{ ROLE_ID }}>
-            ❌ Deployment of [{{ EVENT_PAYLOAD.repository.full_name }}](${{ github.repositoryUrl }})@${{ steps.meta.outputs.VERSION }}] has failed.
+            ❌ Deployment of [{{ EVENT_PAYLOAD.repository.full_name }}](${{ github.repositoryUrl }})@${{ steps.meta.outputs.VERSION }} has failed.
             🧾 [Click to see detail](https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}})
