@@ -140,8 +140,8 @@ jobs:
         with:
           args: |
             <@&{{ DISCORD_ROLE_ID }}>
-            ✅ <{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}|{{GITHUB_REPOSITORY}}>@<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/releases/tag/${{ steps.meta.outputs.VERSION }}|${{ steps.meta.outputs.VERSION }}> has been deployed successfully.
-            🧾 <{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}|Click to see detail>
+            ✅ [{{GITHUB_REPOSITORY}}](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}>)@[${{ steps.meta.outputs.VERSION }}](<<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/releases/tag/${{ steps.meta.outputs.VERSION }}>) has been deployed successfully.
+            🧾 [Click to see detail](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>)
 
   notify-fail:
     runs-on: ubuntu-latest
@@ -160,5 +160,5 @@ jobs:
         with:
           args: |
             <@&{{ DISCORD_ROLE_ID }}>
-            ❌ Deployment of <{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}|{{GITHUB_REPOSITORY}}>@<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/releases/tag/${{ steps.meta.outputs.VERSION }}|${{ steps.meta.outputs.VERSION }}> has failed.
-            🧾 <{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}|Click to see detail>
+            ❌ Deployment of [{{GITHUB_REPOSITORY}}](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}>)@[${{ steps.meta.outputs.VERSION }}](<<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/releases/tag/${{ steps.meta.outputs.VERSION }}>) has failed.
+            🧾 [Click to see detail](<{{GITHUB_SERVER_URL}}/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>)
