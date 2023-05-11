@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [frontend, server]
     steps:
-      - name: executing remote ssh commands using password
+      - name: Executing remote ssh commands
         id: ssh
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -144,7 +144,6 @@ jobs:
         with:
           args: |
             <@&{{ ROLE_ID }}>
-            Project: {{ EVENT_PAYLOAD.repository.full_name }}@${{ steps.meta.outputs.VERSION }}
-            [Deploy]
-            Result: {{ steps.meta.outputs.OUTCOME }}
-            Log: <https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>
+            [Deploying project {{ EVENT_PAYLOAD.repository.full_name }}@${{ steps.meta.outputs.VERSION }}]
+            🛠️ Result: ${{ steps.meta.outputs.OUTCOME }}
+            🧾 Log: <https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>
