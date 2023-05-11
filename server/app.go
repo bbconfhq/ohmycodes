@@ -32,13 +32,10 @@ func main() {
 	// Check if sqlite file exists
 	_, err := os.Stat(dsn)
 
-	// Remove existing sqlite file
-	if err == nil {
-		_ = os.Remove(dsn)
-	}
-
 	// Create new sqlite file
-	_, _ = os.Create(dsn)
+	if err != nil {
+		_, _ = os.Create(dsn)
+	}
 
 	db := database.Connect(dsn)
 	repository.Initialize(db)
