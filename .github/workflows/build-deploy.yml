@@ -123,20 +123,16 @@ jobs:
           username: ${{ secrets.OCI_USERNAME }}
           key: ${{ secrets.OCI_KEY }}
           script: cd ${{ github.event.repository.name }} && sudo ./deploy.sh
-
+          
+  notify-success:
+    runs-on: ubuntu-latest
+    needs: [frontend, server, deploy]
+    if: ${{ always() && !contains(needs.*.result, 'failure') }}
       - name: Get metadata
-        if: ${{ always() }}
         id: meta
         run: |
           echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-          if [ "${{ steps.ssh.outcome }}" == "success" ]; then
-            echo "OUTCOME=✅" >> $GITHUB_OUTPUT
-          else
-            echo "OUTCOME=❌" >> $GITHUB_OUTPUT
-          fi
-
       - name: Success notification to discord
-        if: ${{ always() }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           ROLE_ID: ${{ secrets.DISCORD_ROLE_ID }}
@@ -144,6 +140,26 @@ jobs:
         with:
           args: |
             <@&{{ ROLE_ID }}>
-            [Deploying project {{ EVENT_PAYLOAD.repository.full_name }}@${{ steps.meta.outputs.VERSION }}]
-            🛠️ Result: ${{ steps.meta.outputs.OUTCOME }}
-            🧾 Log: <https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}}>
+            ✅ [{{ EVENT_PAYLOAD.repository.full_name }}](${{ github.repositoryUrl }})@${{ steps.meta.outputs.VERSION }}] has been successfully deployed.
+            🧾 [Click to see detail](https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}})
+
+  notify-fail:
+    runs-on: ubuntu-latest
+    needs: [frontend, server, deploy]
+    if: ${{ always() && contains(needs.*.result, 'failure') }}
+    steps:
+      - name: Get metadata
+        if: ${{ always() }}
+        id: meta
+        run: |
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - name: Failure notification to discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          ROLE_ID: ${{ secrets.DISCORD_ROLE_ID }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: |
+            <@&{{ ROLE_ID }}>
+            ❌ Deployment of [{{ EVENT_PAYLOAD.repository.full_name }}](${{ github.repositoryUrl }})@${{ steps.meta.outputs.VERSION }}] has failed.
+            🧾 [Click to see detail](https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}})
