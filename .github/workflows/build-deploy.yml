@@ -126,3 +126,9 @@ jobs:
         username: ${{ secrets.OCI_USERNAME }}
         key: ${{ secrets.OCI_KEY }}
         script: cd ${{ github.event.repository.name }} && sudo ./deploy.sh
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
