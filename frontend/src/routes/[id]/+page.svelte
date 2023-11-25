@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { Language } from '@calor/core';
+  import { highlight } from '@calor/highlighter';
+  import '@calor/highlighter/themes/github-light.css';
   import hljs from 'highlight.js';
   import 'highlight.js/styles/github.css';
   import {onMount} from 'svelte';
@@ -11,10 +14,31 @@
   export let data;
   let payload = data.data;
   let value: string;
+  const calorLanguages: Array<Language> = Object.keys(Language).map((k) => Language[k]);
+
+  const calorRemap = (lang: string) => {
+    switch (lang) {
+    case 'go':
+      return 'golang';
+    default:
+      return lang;
+    }
+  };
   if (payload.language !== 'auto') {
-    value = hljs.highlight(payload.content, {language: payload.language}).value;
+    if (calorLanguages.includes(calorRemap(payload.language))) {
+      value = highlight(payload.content, calorRemap(payload.language));
+    } else {
+      value = hljs.highlight(payload.content, { language: payload.language }).value;
+    }
   } else {
     value = hljs.highlightAuto(payload.content).value;
+  }
+
+  // unwrap calor wrapper
+  const dom = new DOMParser().parseFromString(value, 'text/html');
+  const pre = dom.querySelector('pre.calor-wrapper');
+  if (pre != null) {
+    value = pre.innerHTML;
   }
 
   let lines = value.split(/\r?\n/);
