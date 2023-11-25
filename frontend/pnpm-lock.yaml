@@ -1,6 +1,16 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
+  '@calor/core':
+    specifier: ^0.0.4
+    version: 0.0.4
+  '@calor/highlighter':
+    specifier: ^0.0.4
+    version: 0.0.4(@calor/core@0.0.4)
   codemirror:
     specifier: ^5.65.13
     version: 5.65.13
@@ -77,6 +87,18 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.11
+    dev: false
+
+  /@calor/core@0.0.4:
+    resolution: {integrity: sha512-AD4zDf7yc/QdnnHsqIghw5+9ZFyMaB26wOkfSKH+Cq7QRHBNmCAE1NCEfOFhjHGyiBFRziBYQg9h2TK59foZ5Q==}
+    dev: false
+
+  /@calor/highlighter@0.0.4(@calor/core@0.0.4):
+    resolution: {integrity: sha512-tMpHxqVBlFplZQFY8p3pDqdgWp/ge2/CXYVxGkFZst4z0cdNfLQCQjGYixqBhRVWqlPdbqcfVbquX68kQX1l0Q==}
+    peerDependencies:
+      '@calor/core': ^0.0.4
+    dependencies:
+      '@calor/core': 0.0.4
     dev: false
 
   /@esbuild/android-arm64@0.17.18:

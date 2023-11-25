@@ -32,6 +32,8 @@
   },
   "type": "module",
   "dependencies": {
+    "@calor/core": "^0.0.4",
+    "@calor/highlighter": "^0.0.4",
     "codemirror": "^5.65.13",
     "codemirror-github-dark": "^0.4.1",
     "codemirror-github-light": "^0.4.2",
