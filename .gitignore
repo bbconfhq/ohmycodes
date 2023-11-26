@@ -169,3 +169,5 @@ $RECYCLE.BIN/
 **/.idea
 **/live.db
 .nginx/
+
+**/.DS_Store

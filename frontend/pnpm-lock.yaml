@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@calor/core':
-    specifier: ^0.0.4
-    version: 0.0.4
+    specifier: ^0.0.5
+    version: 0.0.5
   '@calor/highlighter':
-    specifier: ^0.0.4
-    version: 0.0.4(@calor/core@0.0.4)
+    specifier: ^0.0.5
+    version: 0.0.5(@calor/core@0.0.5)
   codemirror:
     specifier: ^5.65.13
     version: 5.65.13
@@ -35,49 +35,49 @@ devDependencies:
     specifier: ^1.2.4
     version: 1.2.4(@sveltejs/kit@1.16.2)
   '@sveltejs/kit':
-    specifier: ^1.5.0
+    specifier: ^1.16.2
     version: 1.16.2(svelte@3.59.0)(vite@4.3.5)
   '@typescript-eslint/eslint-plugin':
-    specifier: ^5.45.0
+    specifier: ^5.59.2
     version: 5.59.2(@typescript-eslint/parser@5.59.2)(eslint@8.40.0)(typescript@5.0.4)
   '@typescript-eslint/parser':
-    specifier: ^5.45.0
+    specifier: ^5.59.2
     version: 5.59.2(eslint@8.40.0)(typescript@5.0.4)
   eslint:
-    specifier: ^8.28.0
+    specifier: ^8.40.0
     version: 8.40.0
   eslint-config-prettier:
-    specifier: ^8.5.0
+    specifier: ^8.8.0
     version: 8.8.0(eslint@8.40.0)
   eslint-plugin-import:
     specifier: ^2.27.5
     version: 2.27.5(@typescript-eslint/parser@5.59.2)(eslint@8.40.0)
   eslint-plugin-svelte:
-    specifier: ^2.26.0
+    specifier: ^2.27.3
     version: 2.27.3(eslint@8.40.0)(svelte@3.59.0)
   prettier:
-    specifier: ^2.8.0
+    specifier: ^2.8.8
     version: 2.8.8
   prettier-plugin-svelte:
-    specifier: ^2.8.1
+    specifier: ^2.10.0
     version: 2.10.0(prettier@2.8.8)(svelte@3.59.0)
   sass:
     specifier: ^1.62.1
     version: 1.62.1
   svelte:
-    specifier: ^3.54.0
+    specifier: ^3.59.0
     version: 3.59.0
   svelte-check:
-    specifier: ^3.0.1
+    specifier: ^3.3.1
     version: 3.3.1(postcss@8.4.23)(sass@1.62.1)(svelte@3.59.0)
   tslib:
-    specifier: ^2.4.1
+    specifier: ^2.5.0
     version: 2.5.0
   typescript:
-    specifier: ^5.0.0
+    specifier: ^5.0.4
     version: 5.0.4
   vite:
-    specifier: ^4.3.0
+    specifier: ^4.3.5
     version: 4.3.5(sass@1.62.1)
 
 packages:
@@ -89,16 +89,16 @@ packages:
       regenerator-runtime: 0.13.11
     dev: false
 
-  /@calor/core@0.0.4:
-    resolution: {integrity: sha512-AD4zDf7yc/QdnnHsqIghw5+9ZFyMaB26wOkfSKH+Cq7QRHBNmCAE1NCEfOFhjHGyiBFRziBYQg9h2TK59foZ5Q==}
+  /@calor/core@0.0.5:
+    resolution: {integrity: sha512-oEFeVCnz472p+cA6Vcka24Nqz8IqPnqcCzNEY7PkD3VkztApTtNPgbiDEMuyFW3itjpdr5W1+ich24rwHMlocw==}
     dev: false
 
-  /@calor/highlighter@0.0.4(@calor/core@0.0.4):
-    resolution: {integrity: sha512-tMpHxqVBlFplZQFY8p3pDqdgWp/ge2/CXYVxGkFZst4z0cdNfLQCQjGYixqBhRVWqlPdbqcfVbquX68kQX1l0Q==}
+  /@calor/highlighter@0.0.5(@calor/core@0.0.5):
+    resolution: {integrity: sha512-Tp84T09fybtgQaF06kXtsGWVxPIBl5euRf1Du0zDop+kJLGCcPlmwUpcV+IWOlJ0aLy8L1Ykia5dF2PiZnNv1w==}
     peerDependencies:
-      '@calor/core': ^0.0.4
+      '@calor/core': ^0.0.5
     dependencies:
-      '@calor/core': 0.0.4
+      '@calor/core': 0.0.5
     dev: false
 
   /@esbuild/android-arm64@0.17.18:
@@ -854,7 +854,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /codemirror-github-dark@0.4.1:
@@ -1378,8 +1378,8 @@ packages:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
@@ -2125,7 +2125,7 @@ packages:
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /run-parallel@1.2.0:
@@ -2533,7 +2533,7 @@ packages:
       rollup: 3.21.5
       sass: 1.62.1
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /vitefu@0.2.4(vite@4.3.5):

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Language } from '@calor/core';
-  import { highlight } from '@calor/highlighter';
+  import { detectLanguage, getParseRule, Language, tokenize } from '@calor/core';
   import '@calor/highlighter/themes/github-light.css';
   import hljs from 'highlight.js';
   import 'highlight.js/styles/github.css';
@@ -24,25 +23,45 @@
       return lang;
     }
   };
+
+  const escapeHTML = (text: string) => {
+    return text.replace(/[&<>]/g, (match) => {
+      switch (match) {
+      case '&':
+        return '&amp;';
+      case '<':
+        return '&lt;';
+      case '>':
+        return '&gt;';
+      default:
+        return match;
+      }
+    });
+  };
+
+  const calorHighlighter = (code: string, language?: string): string => {
+    if (language == null) {
+      language = detectLanguage(code);
+    }
+    const tokens = tokenize(code, getParseRule(language));
+    const html = tokens.reduce((acc, token) => {
+      acc += escapeHTML(token.value).split(/\r?\n/).map((v) => `<span class="calor-${token.kind}">${v}</span>`).join('\n');
+      return acc;
+    }, '');
+    return html;
+  };
+
   if (payload.language !== 'auto') {
     if (calorLanguages.includes(calorRemap(payload.language))) {
-      value = highlight(payload.content, calorRemap(payload.language));
+      value = calorHighlighter(payload.content, calorRemap(payload.language));
     } else {
       value = hljs.highlight(payload.content, { language: payload.language }).value;
     }
   } else {
     value = hljs.highlightAuto(payload.content).value;
   }
-
-  // unwrap calor wrapper
-  const dom = new DOMParser().parseFromString(value, 'text/html');
-  const pre = dom.querySelector('pre.calor-wrapper');
-  if (pre != null) {
-    value = pre.innerHTML;
-  }
-
-  let lines = value.split(/\r?\n/);
-  let lineNumberWidth = 20 + lines.length.toString().length * 8;
+  const lines = value.split(/\r?\n/);
+  const lineNumberWidth = 20 + lines.length.toString().length * 8;
   value = lines
     .map((v, i) => {
       return `<div class="gutter" style="grid-template-columns: ${lineNumberWidth}px 1fr" data-line="${i + 1}"><span class="line-number" draggable="true" style="">${
