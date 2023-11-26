@@ -14,7 +14,8 @@ export const langmode = {
   scala: 'text/x-scala',
   rust: 'text/x-rustsrc',
   sql: 'text/x-sql',
-  typescript: 'text/typescript'
+  typescript: 'text/typescript',
+  text: 'text/plain'
 } as const;
 
 export const supportedLanguages = Object.keys(langmode);
