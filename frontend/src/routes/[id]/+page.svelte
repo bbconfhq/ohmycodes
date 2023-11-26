@@ -185,8 +185,6 @@
    });
 </script>
 
-<link rel="stylesheet" href="../../app.css" />
-
 <svelte:head>
   <title>{payload.title} by {payload.name} - ohmy.codes</title>
   <meta name="description" content="ohmy.codes" />
