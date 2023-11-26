@@ -70,10 +70,14 @@
     })
     .join('');
 
+  let copyButtonText = 'Copy';
   function onCopy() {
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(payload.content).then(() => {
-        alert('Copied to clipboard.');
+        copyButtonText = 'Copied!';
+        setTimeout(() => {
+          copyButtonText = 'Copy';
+        }, 3000);
       });
     } else {
       const textArea = document.createElement('textarea');
@@ -206,7 +210,7 @@
 </div>
 <div>
   <div class="code" use:codeViewerEventBinder>
-    <button id="copy" on:click={onCopy}>Copy</button>{@html value}
+    <button id="copy" on:click={onCopy}>{copyButtonText}</button>{@html value}
   </div>
 </div>
 
