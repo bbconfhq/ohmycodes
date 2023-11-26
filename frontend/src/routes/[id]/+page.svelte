@@ -68,7 +68,6 @@
 
       try {
         document.execCommand('copy');
-        alert('Copied to clipboard.');
       } catch (error) {
         console.error(error);
       } finally {
