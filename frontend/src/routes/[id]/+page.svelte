@@ -70,10 +70,14 @@
     })
     .join('');
 
+  let copyButtonText = 'Copy';
   function onCopy() {
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(payload.content).then(() => {
-        alert('Copied to clipboard.');
+        copyButtonText = 'Copied!';
+        setTimeout(() => {
+          copyButtonText = 'Copy';
+        }, 3000);
       });
     } else {
       const textArea = document.createElement('textarea');
@@ -99,7 +103,7 @@
     el.addEventListener('click', onClick);
     el.addEventListener('dragstart', onDragStart);
     el.addEventListener('dragover', onDragOver);
-    el.addEventListener('drop', onDrop);
+    el.addEventListener('drop', onDragOver);
   }
 
   function isLineNumberElement(el: Element) {
@@ -129,10 +133,11 @@
     }
   }
 
+  let dragStartLine: string;
   function onDragStart(e: DragEvent) {
     const el = e.target as Element;
     if (isLineNumberElement(el)) {
-      e.dataTransfer.setData('text/plain', el.textContent);
+      dragStartLine = el.textContent;
     } else {
       e.preventDefault();
     }
@@ -140,24 +145,22 @@
 
   function onDragOver(e: DragEvent) {
     e.preventDefault();
-  }
-
-  function onDrop(e: DragEvent) {
-    e.preventDefault();
-    const lineFrom = e.dataTransfer.getData('text');
-    let lineTo: string;
+    let dragEndLine: string;
     const el = e.target as Element;
     if (isLineNumberElement(el)) {
-      lineTo = el.textContent;
+      dragEndLine = el.textContent;
     } else {
       const nearEl = findNearestLineNumberElement(el);
       if (nearEl == null) {
         return;
       }
-      lineTo = nearEl.textContent;
+      dragEndLine = nearEl.textContent;
     }
-    const lineFromEl = document.querySelector(`[data-line="${lineFrom}"]`);
-    const lineToEl = document.querySelector(`[data-line="${lineTo}"]`);
+    let lineFromEl = document.querySelector(`[data-line="${dragStartLine}"]`);
+    let lineToEl = document.querySelector(`[data-line="${dragEndLine}"]`);
+    if (Number(dragStartLine) > Number(dragEndLine)) {
+      [lineFromEl, lineToEl] = [lineToEl, lineFromEl];
+    }
     removeAllHighlight();
     highlightLines(lineFromEl, lineToEl);
   }
@@ -206,8 +209,8 @@
   </div>
 </div>
 <div>
-  <div class="code" on:dragstart={onDragStart} use:codeViewerEventBinder>
-    <button id="copy" on:click={onCopy}>Copy</button>{@html value}
+  <div class="code" use:codeViewerEventBinder>
+    <button id="copy" on:click={onCopy}>{copyButtonText}</button>{@html value}
   </div>
 </div>
 
