@@ -51,14 +51,18 @@
     return html;
   };
 
-  if (payload.language !== 'auto') {
-    if (calorLanguages.includes(calorRemap(payload.language))) {
-      value = calorHighlighter(payload.content, calorRemap(payload.language));
-    } else {
-      value = hljs.highlight(payload.content, { language: payload.language }).value;
-    }
+  if (payload?.language == null) {
+    value = calorHighlighter(payload.content);
   } else {
-    value = hljs.highlightAuto(payload.content).value;
+    if (payload.language !== 'auto') {
+      if (calorLanguages.includes(calorRemap(payload.language))) {
+        value = calorHighlighter(payload.content, calorRemap(payload.language));
+      } else {
+        value = hljs.highlight(payload.content, { language: payload.language }).value;
+      }
+    } else {
+      value = hljs.highlightAuto(payload.content).value;
+    }
   }
   const lines = value.split(/\r?\n/);
   const lineNumberWidth = 20 + lines.length.toString().length * 8;
