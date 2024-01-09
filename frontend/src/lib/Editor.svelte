@@ -35,7 +35,7 @@
         title,
         name,
         content: code,
-        language: language === 'auto' ? detectedLangauge : language,
+        language: language === 'auto' ? (detectedLangauge || 'text') : language,
       })
     })
       .then((resp) => {
