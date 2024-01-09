@@ -71,6 +71,7 @@
     Sentry.captureException(error);
   }
 
+
   const lines = value.split(/\r?\n/);
   const lineNumberWidth = 20 + lines.length.toString().length * 8;
   value = lines
@@ -184,15 +185,20 @@
   }
 
    onMount(() => {
-     const range = parseLineHighlightHash();
-     if (range == null) {
-       return;
+     try {
+       const range = parseLineHighlightHash();
+       if (range == null) {
+         return;
+       }
+       const { start, end } = range;
+       const lineFromEl = document.querySelector(`[data-line="${start}"]`);
+       const lineToEl = document.querySelector(`[data-line="${end}"]`);
+       removeAllHighlight();
+       highlightLines(lineFromEl, lineToEl);
+     } catch (error) {
+       Sentry.setContext('payload', payload);
+       Sentry.captureException(error);
      }
-     const { start, end } = range;  
-     const lineFromEl = document.querySelector(`[data-line="${start}"]`);
-     const lineToEl = document.querySelector(`[data-line="${end}"]`);
-     removeAllHighlight();
-     highlightLines(lineFromEl, lineToEl);
    });
 </script>
 
