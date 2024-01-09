@@ -1,5 +1,6 @@
 <script lang="ts">
   import { detectLanguage, getParseRule, Language, tokenize } from '@calor/core';
+  import * as Sentry from '@sentry/sveltekit';
   import '@calor/highlighter/themes/github-light.css';
   import hljs from 'highlight.js';
   import 'highlight.js/styles/github.css';
@@ -51,19 +52,25 @@
     return html;
   };
 
-  if (payload?.language == null) {
-    value = calorHighlighter(payload.content);
-  } else {
-    if (payload.language !== 'auto') {
-      if (calorLanguages.includes(calorRemap(payload.language))) {
-        value = calorHighlighter(payload.content, calorRemap(payload.language));
-      } else {
-        value = hljs.highlight(payload.content, { language: payload.language }).value;
-      }
+  try {
+    if (payload?.language == null) {
+      value = calorHighlighter(payload.content);
     } else {
-      value = hljs.highlightAuto(payload.content).value;
+      if (payload.language !== 'auto') {
+        if (calorLanguages.includes(calorRemap(payload.language))) {
+          value = calorHighlighter(payload.content, calorRemap(payload.language));
+        } else {
+          value = hljs.highlight(payload.content, { language: payload.language }).value;
+        }
+      } else {
+        value = hljs.highlightAuto(payload.content).value;
+      }
     }
+  } catch (error) {
+    Sentry.setContext('payload', payload);
+    Sentry.captureException(error);
   }
+
   const lines = value.split(/\r?\n/);
   const lineNumberWidth = 20 + lines.length.toString().length * 8;
   value = lines
