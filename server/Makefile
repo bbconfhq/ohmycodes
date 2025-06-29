@@ -1,5 +1,5 @@
-project_name = ohmycodes
-image_name = ohmycodes:latest
+project_name = mycodes
+image_name = mycodes:latest
 
 run-local:
 	go run app.go

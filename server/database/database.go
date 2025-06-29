@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	"github.com/bbconfhq/ohmycodes/models"
+	"github.com/bbconfhq/mycodes/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )

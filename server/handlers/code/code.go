@@ -5,8 +5,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/bbconfhq/ohmycodes/models"
-	"github.com/bbconfhq/ohmycodes/repository"
+	"github.com/bbconfhq/mycodes/models"
+	"github.com/bbconfhq/mycodes/repository"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	gonanoid "github.com/matoous/go-nanoid/v2"

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/bbconfhq/ohmycodes/models"
+	"github.com/bbconfhq/mycodes/models"
 	"gorm.io/gorm"
 	"time"
 )

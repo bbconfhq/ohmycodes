@@ -1,4 +1,4 @@
-# ohmycodes-server
+# mycodes-server
 
 ## Development
 
@@ -39,8 +39,8 @@ make start
 ## Production
 
 ```bash
-docker build -t ohmycodes .
-docker run -d -p 3000:3000 ohmycodes
+docker build -t mycodes .
+docker run -d -p 3000:3000 mycodes
 ```
 
 Go to http://localhost:3000:

@@ -1,4 +1,4 @@
-# ohmycodes
+# mycodes
 
 ## Getting Started
 

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/bbconfhq/ohmycodes/database"
-	"github.com/bbconfhq/ohmycodes/handlers"
-	"github.com/bbconfhq/ohmycodes/repository"
+	"github.com/bbconfhq/mycodes/database"
+	"github.com/bbconfhq/mycodes/handlers"
+	"github.com/bbconfhq/mycodes/repository"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"os"

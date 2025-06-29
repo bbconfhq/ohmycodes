@@ -190,8 +190,8 @@
 </script>
 
 <svelte:head>
-  <title>{payload.title} by {payload.name} - ohmy.codes</title>
-  <meta name="description" content="ohmy.codes" />
+  <title>{payload.title} by {payload.name} - mycod.es</title>
+  <meta name="description" content="mycod.es" />
 </svelte:head>
 
 <div>

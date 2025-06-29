@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/bbconfhq/ohmycodes/handlers/code"
+	"github.com/bbconfhq/mycodes/handlers/code"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )

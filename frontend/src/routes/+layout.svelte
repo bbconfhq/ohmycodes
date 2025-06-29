@@ -5,7 +5,7 @@
 
 <main id="root">
   <header>
-    <h1 id="title"><a href="/">ohmy.codes</a></h1>
+    <h1 id="title"><a href="/">mycod.es</a></h1>
   </header>
   <div id="content">
     <slot />

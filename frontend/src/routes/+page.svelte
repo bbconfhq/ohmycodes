@@ -7,8 +7,8 @@
 </script>
 
 <svelte:head>
-  <title>ohmy.codes - Sharing your codes temporarily!</title>
-  <meta name="description" content="ohmy.codes" />
+  <title>mycod.es - Sharing your codes temporarily!</title>
+  <meta name="description" content="mycod.es" />
 </svelte:head>
 
 <div class="container">

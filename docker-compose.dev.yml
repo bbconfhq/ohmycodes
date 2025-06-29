@@ -1,7 +1,7 @@
 version: '3'
 services:
   server:
-    container_name: ohmycodes-server
+    container_name: mycodes-server
     build: server/
     ports:
       - "4000:4000"
@@ -10,7 +10,7 @@ services:
       - "./server/.env:/.env"
       - "./server/live.db:/live.db"
   frontend:
-    container_name: ohmycodes-frontend
+    container_name: mycodes-frontend
     build:
       context: frontend
       dockerfile: Dockerfile.dev

@@ -1,4 +1,4 @@
-module github.com/bbconfhq/ohmycodes
+module github.com/bbconfhq/mycodes
 
 go 1.18
 
